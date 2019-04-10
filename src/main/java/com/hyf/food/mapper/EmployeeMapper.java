@@ -87,6 +87,4 @@ public interface EmployeeMapper {
 	 */
 	@Select("select count(*) from employee")
 	public int count();
-
-
 }

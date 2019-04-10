@@ -1,48 +1,34 @@
 package com.hyf.food.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
+@Setter
+@Getter
+@ToString
 public class OredritemsTableModel {
 	int code;
 	String message;
 	int count;
 	List<Orderitems> data;
+
 	public OredritemsTableModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public OredritemsTableModel(int code, String message, int count,
-			List<Orderitems> data) {
+								List<Orderitems> data) {
 		super();
 		this.code = code;
 		this.message = message;
 		this.count = count;
 		this.data = data;
 	}
-	public int getCode() {
-		return code;
-	}
-	public void setCode(int code) {
-		this.code = code;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
-	public List<Orderitems> getData() {
-		return data;
-	}
-	public void setData(List<Orderitems> data) {
-		this.data = data;
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -53,6 +39,7 @@ public class OredritemsTableModel {
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -78,11 +65,4 @@ public class OredritemsTableModel {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "OredritemsTableModel [code=" + code + ", message=" + message
-				+ ", count=" + count + ", data=" + data + "]";
-	}
-	
-
 }

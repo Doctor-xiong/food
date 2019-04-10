@@ -42,17 +42,17 @@ public class OrderAction {
 		//根据菜品id获取菜品信息
 		Menu menu = menuServiceImpl.queryMenuById(m_id1);
 		//查询该餐桌是否有状态为0的总订单
-		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getd_id());
+		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
 		//System.out.println("bbbbbbbb"+osList.get(0).getos_regtime());
 		//如果没有则 创建一个该餐桌的总订单
 		if(osList.size() == 0){
 			Orderitems os = new Orderitems();
-			os.setd_id(desk.getd_id());
+			os.setD_id(desk.getD_id());
 			int i = orderitemsServiceImpl.addOrderitems(os);
 			if(i == 1){
-				System.out.println("成功创建一个该餐桌的总订单----获取到返回的os_id"+os.getos_id());
+				System.out.println("成功创建一个该餐桌的总订单----获取到返回的os_id"+os.getOs_id());
 				//根据菜品信息创建一个子订单
-				Orderitem oi = new Orderitem(os.getos_id(),menu.getm_id(),(long)1,menu.getm_price());
+				Orderitem oi = new Orderitem(os.getOs_id(),menu.getM_id(),(long)1,menu.getM_price());
 				int j = orderitemServiceImpl.addOrderitem(oi);
 				if(j == 1){
 					System.out.println("成功：根据菜品信息创建一个子订单");
@@ -69,12 +69,12 @@ public class OrderAction {
 		//如果有一个，则获取该总订单信息
 		if(osList.size() == 1){
 			Orderitems os1 = osList.get(0);
-			System.out.println("aaaaaaaaaaaa----------"+os1.getos_id()+os1.getd_id());
+			System.out.println("aaaaaaaaaaaa----------"+os1.getOs_id()+os1.getD_id());
 			//根据菜品id查找总订单中的子订单（总订单中不能存在相同菜品的子订单）
-			Orderitem oi1 = orderitemServiceImpl.queryOrderitemByMidAndOsid(menu.getm_id(), os1.getos_id());
+			Orderitem oi1 = orderitemServiceImpl.queryOrderitemByMidAndOsid(menu.getM_id(), os1.getOs_id());
 			//如果为null  则根据菜品信息创建一个子订单
 			if(oi1 == null){
-				Orderitem oi2 = new Orderitem(os1.getos_id(),menu.getm_id(),(long)1,menu.getm_price());
+				Orderitem oi2 = new Orderitem(os1.getOs_id(),menu.getM_id(),(long)1,menu.getM_price());
 				int k = orderitemServiceImpl.addOrderitem(oi2);
 				if(k ==1 ){
 					System.out.println("成功：如果为null  则根据菜品信息创建一个子订单");
@@ -87,7 +87,7 @@ public class OrderAction {
 				//如果存在 则直接修改菜品信息
 				int l = orderitemServiceImpl.updateOrderitemAdd(oi1);
 				if(l ==1 ){
-					System.out.println("成功：如果存在 则直接修改菜品信息"+oi1.getoi_id());
+					System.out.println("成功：如果存在 则直接修改菜品信息"+oi1.getOi_id());
 					return "1";
 				}else{
 					System.out.println("失败：如果存在 则直接修改菜品信息");
@@ -116,7 +116,7 @@ public class OrderAction {
 		//根据菜品id获取菜品信息
 		Menu menu = menuServiceImpl.queryMenuById(m_id1);
 		//查询该餐桌是否有状态为0的总订单
-		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getd_id());
+		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
 		
 		//没有
 		if(osList.size() == 0){
@@ -126,7 +126,7 @@ public class OrderAction {
 		if(osList.size() == 1){
 			Orderitems os1 = osList.get(0);
 			//根据菜品id查找总订单中的子订单（总订单中不能存在相同菜品的子订单）
-			Orderitem oi1 = orderitemServiceImpl.queryOrderitemByMidAndOsid(menu.getm_id(), os1.getos_id());
+			Orderitem oi1 = orderitemServiceImpl.queryOrderitemByMidAndOsid(menu.getM_id(), os1.getOs_id());
 			if(oi1 == null){
 				System.out.println("失败：根据菜品id查找总订单中的子订单");
 				return "0";
@@ -135,14 +135,14 @@ public class OrderAction {
 				int l = orderitemServiceImpl.updateOrderitemDec(oi1);
 				if(l ==1 ){
 					//查询子订单信息
-					Orderitem oi2 = orderitemServiceImpl.queryOrderitemByMidAndOsid(oi1.getm_id(), oi1.getos_id());
-					if(oi2.getoi_num() == 0){
+					Orderitem oi2 = orderitemServiceImpl.queryOrderitemByMidAndOsid(oi1.getM_id(), oi1.getOs_id());
+					if(oi2.getOi_num() == 0){
 						//如果数量等于0，那么彻底删除这个子订单
-						orderitemServiceImpl.deleteOrderitemByOiid(oi1.getoi_id());
+						orderitemServiceImpl.deleteOrderitemByOiid(oi1.getOi_id());
 						System.out.println("成功：如果数量等于0，那么彻底删除这个子订单");
 						return "1";
 					}else{
-						System.out.println("成功：如果存在 则直接修改菜品信息"+oi1.getoi_id());
+						System.out.println("成功：如果存在 则直接修改菜品信息"+oi1.getOi_id());
 						return "1";
 					}
 				}else{
@@ -168,14 +168,14 @@ public class OrderAction {
 		System.out.println("获取我的餐桌信息");
 		Desk desk = (Desk) session.getAttribute("desk");
 		//查询该餐桌是否有状态为0的总订单
-		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getd_id());
+		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
 		if(osList.size() == 1){
 			//获取总订单中的子订单 （子订单中要包含菜品的信息）
-			List<Orderitem> oiList = orderitemServiceImpl.queryItemByOsid(osList.get(0).getos_id());
+			List<Orderitem> oiList = orderitemServiceImpl.queryItemByOsid(osList.get(0).getOs_id());
 			//计算该总订单各个子订单菜品的总数量
 			long bageNum = 0;
 			for (Orderitem orderitem : oiList) {
-				bageNum = orderitem.getoi_num()+bageNum;
+				bageNum = orderitem.getOi_num()+bageNum;
 			}
 			model.addAttribute("bageNum", bageNum);
 			//存入总订单和子订单信息
@@ -208,12 +208,12 @@ public class OrderAction {
 			List<Orderitem> oiList = orderitemServiceImpl.queryItemByOsid(os_id1);
 			int j = 0;
 			for (Orderitem oi : oiList) {
-				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(3,oi.getoi_id());
+				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(3,oi.getOi_id());
 				if(i == 0){
-					System.out.println("清空餐桌-----删除子菜单时失败！"+oi.getoi_id());
+					System.out.println("清空餐桌-----删除子菜单时失败！"+oi.getOi_id());
 					break;
 				}else{
-					System.out.println("清空餐桌-----删除子菜单时成功！"+oi.getoi_id());
+					System.out.println("清空餐桌-----删除子菜单时成功！"+oi.getOi_id());
 					j++;
 				}
 			}
@@ -221,10 +221,10 @@ public class OrderAction {
 			if(j == oiList.size()){
 				int i = orderitemsServiceImpl.updateOrderitemsPositionByOsid(3,os_id1);
 				if(i == 1){
-					System.out.println("清空餐桌-----删除总订单成功！"+os.getos_id());
+					System.out.println("清空餐桌-----删除总订单成功！"+os.getOs_id());
 					return "redirect:mydesk.do";
 				}else{
-					System.out.println("清空餐桌-----删除总订单失败！"+os.getos_id());
+					System.out.println("清空餐桌-----删除总订单失败！"+os.getOs_id());
 					return "error.jsp";
 				}
 			}else{
@@ -304,8 +304,6 @@ public class OrderAction {
 	 * 按订单时间查询总订单
 	 * @param model
 	 * @param session
-	 * @param keyWord
-	 * @param keyType
 	 * @return
 	 */
 	@RequestMapping("queryOrderitemsMsgByOsregtime.action")

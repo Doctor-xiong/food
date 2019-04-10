@@ -57,7 +57,7 @@ public class EmployeeAction {
 	
 	@RequestMapping("updateEmployeeMsg.action")
 	public @ResponseBody String updateEmployeeMsg(Model model,HttpSession session,Employee employee){
-		System.out.println("----------------"+employee.gete_id());
+		System.out.println("----------------"+employee.getE_id());
 		int i = EmployeeServiceImpl.updateEmployeeMsg(employee);
 		if(i == 1){
 			return "success";
@@ -69,7 +69,7 @@ public class EmployeeAction {
 	
 	@RequestMapping("addEmployeeMsg.action")
 	public String addEmployeeMsg(Model model,HttpSession session,@RequestBody Employee employee){
-		System.out.println("employee-------"+employee.gete_regdate());
+		System.out.println("employee-------"+employee.getE_regdate());
 		int i = EmployeeServiceImpl.addEmployeeMsg(employee);
 		if(i == 1){
 			return "成功";

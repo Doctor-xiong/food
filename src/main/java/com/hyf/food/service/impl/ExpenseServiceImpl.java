@@ -20,6 +20,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * @param Expense
 	 * @return
 	 */
+	@Override
 	public int addExpenseMsg(Expense Expense) {
 		return expenseMapper.addExpenseMsg(Expense);
 	}
@@ -29,6 +30,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * @param ex_id
 	 * @return
 	 */
+	@Override
 	public int deleteExoenseMsg(long ex_id) {
 		return expenseMapper.deleteExoenseMsg(ex_id);
 	}
@@ -38,6 +40,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * @param Expense
 	 * @return
 	 */
+	@Override
 	public int updateExpenseMsg(Expense Expense) {
 		return expenseMapper.updateExpenseMsg(Expense);
 	}
@@ -46,6 +49,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * 查询所有支出信息
 	 * @return
 	 */
+	@Override
 	public List<Expense> queryAllExpense() {
 		return expenseMapper.queryAllExpense();
 	}
@@ -56,6 +60,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * @param after
 	 * @return
 	 */
+	@Override
 	public List<Expense> findAllPage(int before,int after) {
 		return expenseMapper.findAllPage(before, after);
 	}
@@ -64,6 +69,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * 计算有多少条数据
 	 * @return
 	 */
+	@Override
 	public int count() {
 		return expenseMapper.count();
 	}
@@ -73,6 +79,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * @param ex_id
 	 * @return
 	 */
+	@Override
 	public Expense queryExpenseMsgByExid(long ex_id) {
 		return expenseMapper.queryExpenseMsgByExid(ex_id);
 	}
@@ -82,6 +89,7 @@ public class ExpenseServiceImpl implements IExpenseService {
 	 * @param ex_regtime
 	 * @return
 	 */
+	@Override
 	public List<Expense> queryExpenseMsgByRegtime(Date ex_regtime) {
 		return expenseMapper.queryExpenseMsgByRegtime(ex_regtime);
 	}

@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		.layui-bg-cyan {
-		    background-color: #6e8cb4!important;
+		    background-color: #fffdfe !important;
 		}
 	  </style>
 </head>

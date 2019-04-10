@@ -37,7 +37,6 @@ public interface OrderitemsMapper {
 	/***
 	 * 增加一个未付款的总订单
 	 * @Options 用来返回插入后的osid 值在os中
-	 * @param d_id
 	 * @return
 	 */
 	@Options(useGeneratedKeys = true,keyProperty ="os_id",keyColumn = "os_id")
@@ -130,7 +129,6 @@ public interface OrderitemsMapper {
 	
 	/***
 	 * 根据桌面ID查询订单信息
-	 * @param os_id
 	 * @return
 	 */
 	@Select("select * from orderitems where d_id = #{d_id}")
@@ -140,7 +138,6 @@ public interface OrderitemsMapper {
 	
 	/***
 	 * 根据桌面ID删除订单状态为0的信息
-	 * @param os_id
 	 * @return
 	 */
 	@Delete("delete from orderitems where d_id = #{d_id} and os_position = 0")

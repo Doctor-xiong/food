@@ -1,7 +1,14 @@
 package com.hyf.food.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
+@Setter
+@Getter
+@ToString
 public class EmpTableModel {
 		int code;
 		String message;
@@ -19,30 +26,7 @@ public class EmpTableModel {
 			this.count = count;
 			this.data = data;
 		}
-		public int getCode() {
-			return code;
-		}
-		public void setCode(int code) {
-			this.code = code;
-		}
-		public String getMessage() {
-			return message;
-		}
-		public void setMessage(String message) {
-			this.message = message;
-		}
-		public int getCount() {
-			return count;
-		}
-		public void setCount(int count) {
-			this.count = count;
-		}
-		public List<Employee> getData() {
-			return data;
-		}
-		public void setData(List<Employee> data) {
-			this.data = data;
-		}
+
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -79,12 +63,4 @@ public class EmpTableModel {
 				return false;
 			return true;
 		}
-		@Override
-		public String toString() {
-			return "EmpTableModel [code=" + code + ", message=" + message
-					+ ", count=" + count + ", data=" + data + "]";
-		}
-		
-		
-
 }

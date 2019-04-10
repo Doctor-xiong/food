@@ -20,13 +20,10 @@ public interface AdminMapper {
 	
 	/***
 	 * 管理员登录
-	 * @param admin
 	 * @return
 	 */
 	@Select("select * from admin where a_name = #{a_name} and a_password = #{a_password}")
 	Admin Adminlogin(@Param("a_name")String a_name,@Param("a_password")String a_password);
-
-
 	
 	/***
 	 * 修改管理员密码
@@ -35,9 +32,4 @@ public interface AdminMapper {
 	 */
 	@Update("update admin set a_password = #{a_password} where a_name = #{a_name}")
 	int updateAdminPsw(Admin admin);
-	
-	
-	
-	
-	
 }

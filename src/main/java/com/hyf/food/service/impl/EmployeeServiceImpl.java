@@ -19,6 +19,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param employee
 	 * @return
 	 */
+	@Override
 	public int addEmployeeMsg(Employee employee) {
 		return employeeMapper.addEmployeeMsg(employee);
 	}
@@ -28,6 +29,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param e_id
 	 * @return
 	 */
+	@Override
 	public int deleteEmployeeMsg(long e_id) {
 		return employeeMapper.deleteEmployeeMsg(e_id);
 	}
@@ -37,6 +39,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param employee
 	 * @return
 	 */
+	@Override
 	public int updateEmployeeMsg(Employee employee) {
 		return employeeMapper.updateEmployeeMsg(employee);
 	}
@@ -46,6 +49,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param e_id
 	 * @return
 	 */
+	@Override
 	public Employee queryEmloyeeById(long e_id) {
 		return employeeMapper.queryEmloyeeById(e_id);
 	}
@@ -54,6 +58,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * 查询所有员工信息
 	 * @return
 	 */
+	@Override
 	public List<Employee> queryAllEmployeeMsg() {
 		return employeeMapper.queryAllEmployeeMsg();
 	}
@@ -64,6 +69,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param e_password
 	 * @return
 	 */
+	@Override
 	public Employee EmployeeLogin(long e_tel, String e_password) {
 		return employeeMapper.EmployeeLogin(e_tel, e_password);
 	}
@@ -72,6 +78,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param e_tel
 	 * @return
 	 */
+	@Override
 	public Employee queryEmployeeByTel(long e_tel) {
 		return employeeMapper.queryEmployeeByTel(e_tel);
 	}
@@ -81,6 +88,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param e_position
 	 * @return
 	 */
+	@Override
 	public List<Employee> queryEmployeeByPosition(long e_position) {
 		return employeeMapper.queryEmployeeByPosition(e_position);
 	}
@@ -91,6 +99,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * @param after
 	 * @return
 	 */
+	@Override
 	public List<Employee> findAllPage(int before,int after) {
 		return employeeMapper.findAllPage(before, after);
 	}
@@ -99,6 +108,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * 计算有多少条数据
 	 * @return
 	 */
+	@Override
 	public int count() {
 		return employeeMapper.count();
 	}

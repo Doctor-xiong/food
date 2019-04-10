@@ -55,7 +55,6 @@ public interface IOrderitemService {
 	
 	/***
 	 * 修改子订单的总订单id
-	 * @param oiList
 	 * @return
 	 */
 	int updateOrderitemOsidByOiid(long os_id,long oi_id);

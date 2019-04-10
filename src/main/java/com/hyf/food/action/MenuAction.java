@@ -48,7 +48,7 @@ public class MenuAction {
 		List<Menu> mList = menuService.queryMenuByPosition2();
 		
 		//查询该餐桌是否有状态为0的总订单
-		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getd_id());
+		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
 		//如果没有总订单，则直接返回
 		if(osList.size() == 0){
 			System.out.println("获取所有推荐菜品:如果没有总订单，则直接返回");
@@ -58,20 +58,20 @@ public class MenuAction {
 		//如果有总订单
 		if(osList.size() == 1){
 			//那么获取所有子订单信息
-			List<Orderitem> oiList =  orderitemServiceImpl.queryItemByOsid(osList.get(0).getos_id());
+			List<Orderitem> oiList =  orderitemServiceImpl.queryItemByOsid(osList.get(0).getOs_id());
 			if(oiList.size() == 0){
 				model.addAttribute("bageNum", 0);
 				model.addAttribute("menu", mList);
 				return "client/orderFood.jsp";
 			}else{
-				System.out.println("//那么获取所有子订单信息"+oiList.get(0).getoi_id());
+				System.out.println("//那么获取所有子订单信息"+oiList.get(0).getOi_id());
 				//将用户选择的菜品数量 装入到menu类的number属性中
 				long bageNum = 0;//计算该总订单各个子订单菜品的总数量
 				for (Orderitem orderitem : oiList) {
-					bageNum = orderitem.getoi_num()+bageNum;
+					bageNum = orderitem.getOi_num()+bageNum;
 					for (Menu menu : mList) {
-						if(menu.getm_id().equals(orderitem.getMenu().getm_id())){
-							menu.setM_number(orderitem.getoi_num());
+						if(menu.getM_id().equals(orderitem.getMenu().getM_id())){
+							menu.setM_number(orderitem.getOi_num());
 						}
 					}
 				}
@@ -101,7 +101,7 @@ public class MenuAction {
 		List<Menu> mList = menuService.queryMenuByType(m_type);
 		model.addAttribute("menu", mList);
 		//查询该餐桌是否有状态为0的总订单
-		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getd_id());
+		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
 		//如果没有总订单，则直接返回
 		if(osList.size() == 0){
 			System.out.println("获取所有推荐菜品:如果没有总订单，则直接返回");
@@ -126,7 +126,7 @@ public class MenuAction {
 		}
 		if(osList.size() == 1){
 			//那么获取所有子订单信息
-			List<Orderitem> oiList =  orderitemServiceImpl.queryItemByOsid(osList.get(0).getos_id());
+			List<Orderitem> oiList =  orderitemServiceImpl.queryItemByOsid(osList.get(0).getOs_id());
 			if(oiList.size() == 0){
 				model.addAttribute("bageNum", 0);
 				model.addAttribute("menu", mList);
@@ -148,14 +148,14 @@ public class MenuAction {
 					return "client/orderFood.jsp";
 				}
 			}else{
-				System.out.println("//那么获取所有子订单信息"+oiList.get(0).getoi_id());
+				System.out.println("//那么获取所有子订单信息"+oiList.get(0).getOi_id());
 				//将用户选择的菜品数量 装入到menu类的number属性中
 				long bageNum = 0;//计算该总订单各个子订单菜品的总数量
 				for (Orderitem orderitem : oiList) {
-					bageNum = orderitem.getoi_num()+bageNum;
+					bageNum = orderitem.getOi_num()+bageNum;
 					for (Menu menu : mList) {
-						if(menu.getm_id().equals(orderitem.getMenu().getm_id())){
-							menu.setM_number(orderitem.getoi_num());
+						if(menu.getM_id().equals(orderitem.getMenu().getM_id())){
+							menu.setM_number(orderitem.getOi_num());
 						}
 					}
 				}
@@ -249,7 +249,6 @@ public class MenuAction {
 	////////////////刘超 3.2新增///////////////////////////
 	/**
 	* 添加新菜品
-	* @param m_id
 	*/
 	@RequestMapping("addNewMenu.action")
 	public String addNewMenu(Menu menu){
@@ -258,7 +257,6 @@ public class MenuAction {
 	}
 	/**
 	* 新菜品上传图片后返回路径
-	* @param m_id
 	*/
 	@RequestMapping("uploadPicture.action")
 	public @ResponseBody Layui updateImg(MultipartFile file,HttpServletRequest request) throws IllegalStateException, IOException{

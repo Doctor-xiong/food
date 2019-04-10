@@ -76,7 +76,6 @@ public interface OrderitemMapper {
 	
 	/***
 	 * 修改子订单的总订单id
-	 * @param oiList
 	 * @return
 	 */
 	/*@Update("<script>"

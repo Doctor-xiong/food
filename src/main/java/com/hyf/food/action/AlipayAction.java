@@ -47,7 +47,6 @@ public class AlipayAction {
 	/***
 	 * 支付宝支付接口
 	 * @param request
-	 * @param os
 	 * @param model1
 	 * @return
 	 * @throws IOException 
@@ -61,12 +60,12 @@ public class AlipayAction {
 		Orderitems os = orderitemsServiceImpl.queryOrderitsmByOsid(os_id1);
 		
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
-	    String out_trade_no = os.getos_id().toString();
+	    String out_trade_no = os.getOs_id().toString();
 		// 订单名称，必填
 	    String subject = "自助餐厅自助订单";
 		System.out.println(subject);
 	    // 付款金额，必填
-	    String total_amount=os.getos_allprice().toString();
+	    String total_amount=os.getOs_allprice().toString();
 	    // 商品描述，可空
 	    String body = "欢迎光临";
 	    // 超时时间 可空
@@ -112,7 +111,6 @@ public class AlipayAction {
 	/***
 	 * 获取返回信息 完成支付
 	 * @param request
-	 * @param total_amount
 	 * @return
 	 * @throws Exception 
 	 */
@@ -162,18 +160,18 @@ public class AlipayAction {
 			List<Orderitem> oiList = orderitemServiceImpl.queryItemByOsid(os_id);
 			int j = 0;
 			for (Orderitem oi : oiList) {
-				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(1,oi.getoi_id());
+				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(1,oi.getOi_id());
 				if(i == 0){
-					System.out.println("支付成功-----删除子菜单时失败！"+oi.getoi_id());
+					System.out.println("支付成功-----删除子菜单时失败！"+oi.getOi_id());
 					break;
 				}else{
 					//子订单修改成功后再将菜品销量+1
 					//1、获取菜品信息
 					Menu menu = oi.getMenu();
 					//2、再将该菜品的选择的数量 临时存入 菜品属性number中
-					menu.setM_number(oi.getoi_num());
+					menu.setM_number(oi.getOi_num());
 					menuServiceImpl.updateMenuNumByMid(menu);
-					System.out.println("支付成功-----删除子菜单时成功！"+oi.getoi_id());
+					System.out.println("支付成功-----删除子菜单时成功！"+oi.getOi_id());
 					j++;
 				}
 			}
@@ -181,14 +179,14 @@ public class AlipayAction {
 			if(j == oiList.size()){
 				int i = orderitemsServiceImpl.updateOrderitemsPositionByOsid(1,os_id);
 				if(i == 1){
-					System.out.println("支付成功-----删除总订单成功！"+os.getos_id());
+					System.out.println("支付成功-----删除总订单成功！"+os.getOs_id());
 					//子订单和总订单先后修改完后，再跳转到订单页面，并发送订单信息
 					model.addAttribute("os", os);//当前支付菜单的信息
 					model.addAttribute("oiList", oiList);//当前支付菜单的信息
 					//并将此加餐的总订单的子订单信息转移到该客人第一个订单中
 					//1.获取存入Session的第一个总订单的信息
 					Orderitems os1 = (Orderitems) session.getAttribute("os_pay");
-					//System.out.println("获取存入Session的第一个总订单的信息---------"+os1.getOiList().get(0).getos_id());
+					//System.out.println("获取存入Session的第一个总订单的信息---------"+os1.getOiList().get(0).getOs_id());
 					//1.1 如果session 没有值则不进行修改
 					if(os1 == null || os1.equals("")){
 						/*//当所有删除订单信息删除成功后，再将desk的session删除
@@ -199,15 +197,15 @@ public class AlipayAction {
 						int k = 0;
 						//2.批量修改加餐子订单的总订单id，                //如果加餐子订单的与第一个总订单的子订单的菜品一样，则直接修改子订单数量
 						for (Orderitem oi : oiList) {
-							System.out.println(os1.getOiList().get(0).getos_id()+"//2.批量修改加餐子订单的总订单id，---------"+oi.getoi_id());
-							System.out.println("打印总订单id-------------"+os1.getOiList().get(0).getos_id());
-							k = orderitemServiceImpl.updateOrderitemOsidByOiid(os1.getOiList().get(0).getos_id(), oi.getoi_id());
+							System.out.println(os1.getOiList().get(0).getOs_id()+"//2.批量修改加餐子订单的总订单id，---------"+oi.getOi_id());
+							System.out.println("打印总订单id-------------"+os1.getOiList().get(0).getOs_id());
+							k = orderitemServiceImpl.updateOrderitemOsidByOiid(os1.getOiList().get(0).getOs_id(), oi.getOi_id());
 							//并修改所有子订单的状态为1
-							orderitemServiceImpl.updateOrderitemPositionByOiid(1, oi.getoi_id());
+							orderitemServiceImpl.updateOrderitemPositionByOiid(1, oi.getOi_id());
 							k++;
 							//2.1 同时修改总订单价格,如果有多个数量
-							float total = (oi.getoi_price()*oi.getoi_num());
-							orderitemsServiceImpl.updateOrderitemsPriceByOsid(total, os1.getOiList().get(0).getos_id());
+							float total = (oi.getOi_price()*oi.getOi_num());
+							orderitemsServiceImpl.updateOrderitemsPriceByOsid(total, os1.getOiList().get(0).getOs_id());
 						}
 						System.out.println("修改了"+k+"条数据----------------------");
 						if(k != 0){
@@ -232,7 +230,7 @@ public class AlipayAction {
 						}
 					}
 				}else{
-					//System.out.println("支付成功-----删除总订单失败！"+os.getos_id());
+					//System.out.println("支付成功-----删除总订单失败！"+os.getOs_id());
 					return "error.jsp";
 				}
 			}else{

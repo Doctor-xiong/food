@@ -38,24 +38,24 @@ public class DeskAction {
 	 */
 	@RequestMapping("clientLogin.action")
 	public String LoginDesk(Model model, Desk desk, HttpSession session){
-		System.out.println("餐桌登录---------"+desk.getd_password());
+		System.out.println("餐桌登录---------"+desk.getD_password());
 		//登录的时候 清除掉为again的session
 		session.removeAttribute("again");
 		Desk d = deskServiceImpl.queryDeskByIdAndPassword(desk);
 		//查询是否存在未付款的订单
-		List<Orderitems> osList = orderitemsService.queryOrderitemsByPosition(0, desk.getd_id());
+		List<Orderitems> osList = orderitemsService.queryOrderitemsByPosition(0, desk.getD_id());
 		//查询是否存在已付款的订单
-		List<Orderitems> osList1 = orderitemsService.queryOrderitemsByPosition(1, desk.getd_id());
+		List<Orderitems> osList1 = orderitemsService.queryOrderitemsByPosition(1, desk.getD_id());
 		if(d == null){
 			//登录失败
 			model.addAttribute("msg","抱歉，此二维码已失效，请联系前台服务员。");
 			return "index.jsp";
 		}else{
-			if(d.getd_position() == 1){
+			if(d.getD_position() == 1){
 				//当餐桌显示有客时 但实际上没有客人 我们先查询是否有状态为0的总订单 且 总订单中要有子订单
 				if(osList.size() > 0  ){
 					//查询总订单中是否有子订单的存在
-					List<Orderitem> oiList = orderitemService.queryItemByOsid(osList.get(0).getos_id());//未付款总订单
+					List<Orderitem> oiList = orderitemService.queryItemByOsid(osList.get(0).getOs_id());//未付款总订单
 					if(oiList != null){
 						//存在子订单
 						//有，那么进入到选择页面
@@ -64,14 +64,14 @@ public class DeskAction {
 						return "redirect:client/isMydesk1.jsp";
 					}else{
 						//不存在状态为0的子订单 那么就进入到空闲点餐模式 同时删除这个总订单
-						orderitemsService.deleteOrderitemsByOsid(osList.get(0).getos_id());
+						orderitemsService.deleteOrderitemsByOsid(osList.get(0).getOs_id());
 						System.out.println("不存在状态为0的子订单 那么就进入到空闲点餐模式 同时删除这个总订单");
 						session.setAttribute("desk", d);
 						return "redirect:queryRecommendMenu.do";
 					}
 				}else if(osList1.size() > 0){
 					//查询总订单中是否有子订单的存在
-					List<Orderitem> oiList1 = orderitemService.queryItemByOsid(osList1.get(0).getos_id());//已付款总订单
+					List<Orderitem> oiList1 = orderitemService.queryItemByOsid(osList1.get(0).getOs_id());//已付款总订单
 					if(oiList1.size() > 0){
 						//存在子订单
 						//没有状态为0的总订 但有状态为1的  我们就进入到加餐页面
@@ -81,7 +81,7 @@ public class DeskAction {
 						return "redirect:client/isMydesk.jsp";
 					}else{
 						//不存在状态为1的子订单 那么就进入到空闲点餐模式 同时删除这个总订单
-						orderitemsService.deleteOrderitemsByOsid(osList1.get(0).getos_id());
+						orderitemsService.deleteOrderitemsByOsid(osList1.get(0).getOs_id());
 						System.out.println("不存在状态为1的子订单 那么就进入到空闲点餐模式 同时删除这个总订单");
 						session.setAttribute("desk", d);
 						return "redirect:queryRecommendMenu.do";
@@ -96,10 +96,10 @@ public class DeskAction {
 				
 				
 			}
-			else if(d.getd_position() == 0){
+			else if(d.getD_position() == 0){
 				//当无客人时  正常点餐,并修改餐桌状态为1 有人
 				session.setAttribute("desk", d);
-				deskServiceImpl.updateDeskPositionByDid(1, desk.getd_id());
+				deskServiceImpl.updateDeskPositionByDid(1, desk.getD_id());
 				System.out.println("登录成功，正常点餐");
 				return "queryRecommendMenu.do";
 			}
@@ -123,14 +123,14 @@ public class DeskAction {
 		Desk desk = (Desk) session.getAttribute("desk");
 		
 		//查找这个餐桌之前的一个已付款（正在进行的 状态为1）的总订单和子订单
-		Orderitems os = orderitemsService.queryOrderItemsByDidAndDateDescLimit1(desk.getd_id(), 1);
+		Orderitems os = orderitemsService.queryOrderItemsByDidAndDateDescLimit1(desk.getD_id(), 1);
 		//根据总订单id查询所有子订单信息
 		if(os != null){
-			System.out.println("查找这个餐桌之前的一个已付款总订单---------"+os.getOiList().get(0).getos_id());
+			System.out.println("查找这个餐桌之前的一个已付款总订单---------"+os.getOiList().get(0).getOs_id());
 			model.addAttribute("os1", os);
 			session.setAttribute("os_pay", os);
 			session.setAttribute("again", "again");
-			System.out.println("我的餐桌继续加餐-------------"+os.getOiList().get(0).getos_id());
+			System.out.println("我的餐桌继续加餐-------------"+os.getOiList().get(0).getOs_id());
 			return "client/againFood.jsp";
 		}else{
 			System.out.println("查询到了多个正在进行的总订单。请联系前台服务员");
@@ -150,21 +150,21 @@ public class DeskAction {
 		Desk desk = (Desk) session.getAttribute("desk");
 		
 		//获取总订单信息 并将其状态修改为2 历史订单
-		Orderitems os = orderitemsService.queryOrderItemsByDidAndDateDescLimit1(desk.getd_id(), 1);
-		int i = orderitemsService.updateOrderitemsPositionByOsid(2, os.getOiList().get(0).getos_id());
+		Orderitems os = orderitemsService.queryOrderItemsByDidAndDateDescLimit1(desk.getD_id(), 1);
+		int i = orderitemsService.updateOrderitemsPositionByOsid(2, os.getOiList().get(0).getOs_id());
 		//如果总订单修改成功
 		if(i ==1){
 			//获取所有子订单的信息，并将其状态修改为2 历史订单
 			List<Orderitem> oiList = os.getOiList();
 			int k = 0;
 			for (Orderitem oi : oiList) {
-				 k = orderitemService.updateOrderitemPositionByOiid(2, oi.getoi_id())+k;
+				 k = orderitemService.updateOrderitemPositionByOiid(2, oi.getOi_id())+k;
 			}
 			System.out.println(k+"-------------结束用餐--------------"+oiList.size());
 			if(k == oiList.size()){
 				System.out.println("子订单状态修改为2 成功---------");
 				//将餐桌状态修改为0 空闲
-				int j = deskServiceImpl.updateDeskPositionByDid(0, desk.getd_id());
+				int j = deskServiceImpl.updateDeskPositionByDid(0, desk.getD_id());
 				if(j == 1){
 					System.out.println("餐桌状态修改成功++++++++++++++====");
 					//当所有删除订单信息删除成功后，再将desk的session删除
@@ -195,20 +195,20 @@ public class DeskAction {
 	public String cleanNoPayMenu(HttpSession session,Model model){
 		Desk desk = (Desk) session.getAttribute("desk");
 		
-		//Orderitems os = orderitemsService.queryOrderItemsByDidAndDateDescLimit1(desk.getd_id(), 0);
-		Orderitems os = orderitemsService.queryOrderitemsByPosition(0, desk.getd_id()).get(0);
-		List<Orderitem> oiList = orderitemService.queryItemByOsid(os.getos_id());
+		//Orderitems os = orderitemsService.queryOrderItemsByDidAndDateDescLimit1(desk.getD_id(), 0);
+		Orderitems os = orderitemsService.queryOrderitemsByPosition(0, desk.getD_id()).get(0);
+		List<Orderitem> oiList = orderitemService.queryItemByOsid(os.getOs_id());
 		if(os != null){
 			System.out.println("查询到需要清空的付尾款的菜单");
 			//修改所有未付款的子订单信息
 			int k = 0;
 			for (Orderitem oi : oiList) {
-				k = orderitemService.updateOrderitemPositionByOiid(3, oi.getoi_id())+k;
+				k = orderitemService.updateOrderitemPositionByOiid(3, oi.getOi_id())+k;
 			}
 			if(k == oiList.size()){
 				System.out.println("已将所有子订单信息修改为状态 3------------");
 				//继续修改总订单状态
-				int i = orderitemsService.updateOrderitemsPositionByOsid(3, os.getos_id());
+				int i = orderitemsService.updateOrderitemsPositionByOsid(3, os.getOs_id());
 				if( i == 1){
 					System.out.println("总订单状态修改成功");
 					//返回页面
@@ -228,7 +228,6 @@ public class DeskAction {
 	 * 生成二维码
 	 * 只需要传入餐桌id
 	 * 然后返回二维码地址
-	 * @param desk
 	 * @return
 	 * @throws Exception 
 	 */
@@ -237,14 +236,14 @@ public class DeskAction {
 		long did = Long.parseLong(d_id);
 		Desk desk = deskServiceImpl.queryDeskById(did);
 		
-	 	String text = "http://192.168.43.112:8082/food/clientLogin.action?d_id="+desk.getd_id()+"&d_password="+desk.getd_password(); //一号桌登录
+	 	String text = "http://192.168.43.112:8082/food/clientLogin.action?d_id="+desk.getD_id()+"&d_password="+desk.getD_password(); //一号桌登录
 	    System.out.println("随机码： " + text);
 	    int width = 500; // 二维码图片的宽
 	    int height = 500; // 二维码图片的高
 	    String format = "png"; // 二维码图片的格式
 	    
 	    //创建生成路径及文件名
-	    String newName = desk.getd_id()+"password"+desk.getd_password();
+	    String newName = desk.getD_id()+"password"+desk.getD_password();
 	    //文件存储的相对路径
   		String path = "/upload/code";
   		//获取需要存储的路径的绝对路径
@@ -287,7 +286,7 @@ public class DeskAction {
 		public String querytDeskById(Model model,Long d_id){
 		Desk desk = deskServiceImpl.queryDeskById(d_id);
 		model.addAttribute("desk", desk);
-		if(desk.getd_position()==(long)1){
+		if(desk.getD_position()==(long)1){
 		//桌面状态为1则将信息找出来
 		Orderitems order= orderitemsService.queryOrderItemsByDidAndDateDescLimit1(d_id, 1);
 		System.out.println("----------------------------------");
@@ -295,8 +294,8 @@ public class DeskAction {
 			//如果能找到这个桌子的订单则将信息传过去
 			model.addAttribute("size", order.getOiList().size());
 			model.addAttribute("order", order);
-			Desk d = deskServiceImpl.queryDeskById(order.getd_id());
-			String d_name = d.getd_name();
+			Desk d = deskServiceImpl.queryDeskById(order.getD_id());
+			String d_name = d.getD_name();
 			model.addAttribute("d_name", d_name);
 			return "service/deskManager.jsp";
 			}
@@ -307,7 +306,6 @@ public class DeskAction {
 		////////////////刘超 3.13新增///////////////////////////
 		/**
 		* 结账销台把桌台、总订单、子订单状态修改
-		* @param order
 		*/
 		@RequestMapping("accountOrder.action")
 		public void accountOrder(String os_id){
@@ -316,11 +314,11 @@ public class DeskAction {
 		System.out.println("---+++++++++++++++++++++++++++++++------"+id);
 		Orderitems order = orderitemsService.queryOrderitemsByOsId(id);
 		System.out.println("我收到修改请求了"+order);
-		deskServiceImpl.updateDeskPositionByDid(0, order.getd_id());
-		orderitemsService.updateOrderitemsPositionByOsid(2, order.getos_id());
+		deskServiceImpl.updateDeskPositionByDid(0, order.getD_id());
+		orderitemsService.updateOrderitemsPositionByOsid(2, order.getOs_id());
 		List<Orderitem> list = order.getOiList();
 		for (Orderitem orderitem : list) {
-		orderitemService.updateOrderitemPositionByOiid(2,orderitem.getoi_id());
+		orderitemService.updateOrderitemPositionByOiid(2,orderitem.getOi_id());
 		}
 		System.out.println("wo修改成功了");
 		}
@@ -336,7 +334,6 @@ public class DeskAction {
 		
 		/**
 		* 添加桌子
-		* @param name
 		*/
 		@RequestMapping("addDesk.action")
 		public void addDesk(Desk desk){
@@ -346,7 +343,6 @@ public class DeskAction {
 		////////////////刘超 3.15新增///////////////////////////
 		/**
 		* 根据桌名修改桌子状态
-		* @param name
 		*/
 		@RequestMapping("updateDeskPositionByName.action")
 		public void updateDeskPositionByName(long d_id){

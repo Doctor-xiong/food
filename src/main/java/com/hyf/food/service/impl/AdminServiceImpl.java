@@ -18,15 +18,16 @@ public class AdminServiceImpl implements IAdminService {
 	 * @param admin
 	 * @return
 	 */
+	@Override
 	public int updateAdminMsg(Admin admin) {
 		return adminMapper.updateAdminMsg(admin);
 	}
 	
 	/***
 	 * 管理员登录
-	 * @param admin
 	 * @return
 	 */
+	@Override
 	public Admin Adminlogin(String username,String password) {
 		return adminMapper.Adminlogin(username,password);
 	}
@@ -35,6 +36,7 @@ public class AdminServiceImpl implements IAdminService {
 	 * @param admin
 	 * @return
 	 */
+	@Override
 	public int updateAdminPsw(Admin admin) {
 		return adminMapper.updateAdminPsw(admin);
 	}

@@ -34,7 +34,7 @@ public class ExpenseAction {
 	public @ResponseBody Layui queryAllExpense(Model model, HttpSession session, PageUtils page){
 		System.out.println(page.getLimit()+"jin---------"+page.getCurr());
 		List<Expense> eList = ExpenseServiceImpl.findAllPage(page.before1(), page.after());
-		System.out.println("支出管理----时间："+eList.get(0).getex_regtime());
+		System.out.println("支出管理----时间："+eList.get(0).getEx_regtime());
 		int count = ExpenseServiceImpl.count();
 		Layui layui = new Layui();
 		layui.setCount(count);
@@ -75,7 +75,7 @@ public class ExpenseAction {
 	
 	@RequestMapping("updateExpenseMsg.action")
 	public @ResponseBody String updateExpenseMsg(Model model,HttpSession session,Expense expense){
-		System.out.println("----------------"+expense.getex_id());
+		System.out.println("----------------"+expense.getEx_id());
 		int i = ExpenseServiceImpl.updateExpenseMsg(expense);
 		if(i == 1){
 			return "success";
@@ -87,7 +87,7 @@ public class ExpenseAction {
 
     @RequestMapping("addExpenseMsg.action")
     public String addExpenseMsg(Model model,HttpSession session,@RequestBody Expense expense){
-		System.out.println("准备添加支出0------------------------------------------"+expense.getex_name());
+		System.out.println("准备添加支出0------------------------------------------"+expense.getEx_name());
 		int i = ExpenseServiceImpl.addExpenseMsg(expense);
 		if(i == 1){
 			System.out.println("之处添加成功————————————————-"+i);

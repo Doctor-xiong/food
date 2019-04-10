@@ -12,7 +12,6 @@ public interface IAdminService {
 	
 	/***
 	 * 管理员登录
-	 * @param admin
 	 * @return
 	 */
 	Admin Adminlogin(String username,String password);
