@@ -10,6 +10,7 @@ import com.hyf.food.service.IOrderitemService;
 import com.hyf.food.service.IOrderitemsService;
 import com.hyf.food.utils.FileUploadUtil;
 import com.hyf.food.utils.PageUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-
+@Slf4j
 @Controller
 public class MenuAction {
 	
@@ -42,7 +43,7 @@ public class MenuAction {
 	 */
 	@RequestMapping("queryRecommendMenu.do")
 	public String queryRecommendMenu(Model model,HttpSession session){
-		System.out.println("获取所有推荐菜品信息");
+		log.info("获取所有推荐菜品信息");
 		Desk desk = (Desk) session.getAttribute("desk");
 		//查询所有菜单
 		List<Menu> mList = menuService.queryMenuByPosition2();
@@ -51,7 +52,7 @@ public class MenuAction {
 		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
 		//如果没有总订单，则直接返回
 		if(osList.size() == 0){
-			System.out.println("获取所有推荐菜品:如果没有总订单，则直接返回");
+			log.info("获取所有推荐菜品:如果没有总订单，则直接返回");
 			model.addAttribute("menu", mList);
 			return "/client/orderFood.jsp";
 		}
@@ -64,7 +65,7 @@ public class MenuAction {
 				model.addAttribute("menu", mList);
 				return "client/orderFood.jsp";
 			}else{
-				System.out.println("//那么获取所有子订单信息"+oiList.get(0).getOi_id());
+				log.info("//那么获取所有子订单信息"+oiList.get(0).getOi_id());
 				//将用户选择的菜品数量 装入到menu类的number属性中
 				long bageNum = 0;//计算该总订单各个子订单菜品的总数量
 				for (Orderitem orderitem : oiList) {
@@ -81,7 +82,7 @@ public class MenuAction {
 			}
 		}
 		else{
-			System.out.println("获取所有推荐菜品:其他情况----");
+			log.info("获取所有推荐菜品:其他情况----");
 			model.addAttribute("menu", mList);
 			return "client/orderFood.jsp";
 		}
@@ -95,7 +96,7 @@ public class MenuAction {
 	 */
 	@RequestMapping("queryAllMenuByType.do")
 	public String queryAllMenuByType(Model model,String m_type,HttpSession session){
-		System.out.println("按照菜单类别获取菜品-----------"+m_type);
+		log.info("按照菜单类别获取菜品-----------"+m_type);
 		Desk desk = (Desk) session.getAttribute("desk");
 		//查询所有菜单
 		List<Menu> mList = menuService.queryMenuByType(m_type);
@@ -104,7 +105,7 @@ public class MenuAction {
 		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
 		//如果没有总订单，则直接返回
 		if(osList.size() == 0){
-			System.out.println("获取所有推荐菜品:如果没有总订单，则直接返回");
+			log.info("获取所有推荐菜品:如果没有总订单，则直接返回");
 			model.addAttribute("menu", mList);
 			if(m_type.equals("酒水饮料")){
 				return "client/drink.jsp";
@@ -148,7 +149,7 @@ public class MenuAction {
 					return "client/orderFood.jsp";
 				}
 			}else{
-				System.out.println("//那么获取所有子订单信息"+oiList.get(0).getOi_id());
+				log.info("//那么获取所有子订单信息"+oiList.get(0).getOi_id());
 				//将用户选择的菜品数量 装入到menu类的number属性中
 				long bageNum = 0;//计算该总订单各个子订单菜品的总数量
 				for (Orderitem orderitem : oiList) {
@@ -181,7 +182,7 @@ public class MenuAction {
 			}
 		}
 		else{
-			System.out.println("获取所有推荐菜品:其他情况----");
+			log.info("获取所有推荐菜品:其他情况----");
 			model.addAttribute("menu", mList);
 			if(m_type.equals("酒水饮料")){
 				return "client/drink.jsp";
@@ -213,13 +214,13 @@ public class MenuAction {
 	@RequestMapping("queryAllMenu.action")
 	public @ResponseBody
 	Layui queryAllMenu(Model model, PageUtils page){
-		System.out.println("***********************************"+page.getLimit()+page.getCurr());
+		log.info("***********************************"+page.getLimit()+page.getCurr());
 		List<Menu> mList = menuService.findAllPage(page.before1(), page.after());
 		int count = menuService.count();
 		Layui layui = new Layui();
 		layui.setCount(count);
 		layui.setData(mList);
-		System.out.println(layui);
+		log.info("layui={}",layui);
 		return layui;
 	}
 	/**
@@ -261,9 +262,9 @@ public class MenuAction {
 	@RequestMapping("uploadPicture.action")
 	public @ResponseBody Layui updateImg(MultipartFile file,HttpServletRequest request) throws IllegalStateException, IOException{
 		//获取照片上传
-		System.out.println("上传照片+++++++++++++++="+file.toString());
+		log.info("上传照片+++++++++++++++="+file.toString());
 		String filePath = FileUploadUtil.upload(file, request);
-		System.out.println("上传照片2222---------"+filePath);
+		log.info("上传照片2222---------"+filePath);
 		Layui lay = new Layui();
 		lay.setPath(filePath);
 		return lay; 
@@ -284,9 +285,9 @@ public class MenuAction {
 	*/
 	@RequestMapping("updateMenu.action")
 	public void updateMenu(Menu menu){
-		System.out.println("我开始修改了");
+		log.info("我开始修改了");
 		menuService.updateMenu(menu);
-		System.out.println("修改成功");
+		log.info("修改成功");
 	}
 	
 }

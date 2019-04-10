@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 
 /**
@@ -12,11 +13,12 @@ import org.springframework.core.convert.converter.Converter;
  * @author junliu
  *
  */
+@Slf4j
 public class DateConversion implements Converter<String, Date>{
 
 	@Override
 	public Date convert(String date) {
-		System.out.println("日期转换器接受到---------"+date);
+		log.info("日期转换器接受到---------"+date);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date d = null;
 		try {

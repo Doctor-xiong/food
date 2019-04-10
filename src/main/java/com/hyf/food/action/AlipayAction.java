@@ -13,6 +13,7 @@ import com.hyf.food.service.IMenuService;
 import com.hyf.food.service.IOrderitemService;
 import com.hyf.food.service.IOrderitemsService;
 import com.hyf.food.utils.AlipayConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ import java.util.Map;
  * @author 黄逸峰
  *
  */
+@Slf4j
 @Controller
 public class AlipayAction {
 	
@@ -53,7 +55,7 @@ public class AlipayAction {
 	 */
 	@RequestMapping("alipay.do")
 	public void alipay(HttpServletResponse response,HttpServletRequest request,String os_id,Model model1) throws IOException{
-		System.out.println("进入支付环节"+os_id);
+		log.info("进入支付环节"+os_id);
 		
 		//获取总订单信息，以便于获取总价
 		long os_id1 = Long.parseLong(os_id);
@@ -63,7 +65,7 @@ public class AlipayAction {
 	    String out_trade_no = os.getOs_id().toString();
 		// 订单名称，必填
 	    String subject = "自助餐厅自助订单";
-		System.out.println(subject);
+		log.info(subject);
 	    // 付款金额，必填
 	    String total_amount=os.getOs_allprice().toString();
 	    // 商品描述，可空
@@ -91,7 +93,7 @@ public class AlipayAction {
 	    alipay_request.setNotifyUrl(AlipayConfig.notify_url);
 	    // 设置同步地址
 	    alipay_request.setReturnUrl(AlipayConfig.return_url);   
-	    System.out.println("调用SDK生成表单-------------------------");
+	    log.info("调用SDK生成表单-------------------------");
 	    // form表单生产
 	    String form = "";
 		try {
@@ -100,7 +102,7 @@ public class AlipayAction {
 			response.setContentType("text/html;charset=" + AlipayConfig.CHARSET); 
 		    response.getWriter().write(form);//直接将完整的表单html输出到页面 
 		    response.getWriter().flush(); 
-		    System.out.println("直接将完整的表单html输出到页面______________________________-");
+		    log.info("直接将完整的表单html输出到页面______________________________-");
 		    response.getWriter().close();
 		} catch (AlipayApiException e) {
 			// TODO Auto-generated catch block
@@ -150,7 +152,7 @@ public class AlipayAction {
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//请在这里加上商户的业务逻辑程序代码
 			//该页面可做页面美工编辑
-			System.out.println("验证成功");
+			log.info("验证成功");
 			//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 			//将改总订单和子订单状态改为1
 			//总订单号
@@ -162,7 +164,7 @@ public class AlipayAction {
 			for (Orderitem oi : oiList) {
 				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(1,oi.getOi_id());
 				if(i == 0){
-					System.out.println("支付成功-----删除子菜单时失败！"+oi.getOi_id());
+					log.info("支付成功-----删除子菜单时失败！"+oi.getOi_id());
 					break;
 				}else{
 					//子订单修改成功后再将菜品销量+1
@@ -171,7 +173,7 @@ public class AlipayAction {
 					//2、再将该菜品的选择的数量 临时存入 菜品属性number中
 					menu.setM_number(oi.getOi_num());
 					menuServiceImpl.updateMenuNumByMid(menu);
-					System.out.println("支付成功-----删除子菜单时成功！"+oi.getOi_id());
+					log.info("支付成功-----删除子菜单时成功！"+oi.getOi_id());
 					j++;
 				}
 			}
@@ -179,14 +181,14 @@ public class AlipayAction {
 			if(j == oiList.size()){
 				int i = orderitemsServiceImpl.updateOrderitemsPositionByOsid(1,os_id);
 				if(i == 1){
-					System.out.println("支付成功-----删除总订单成功！"+os.getOs_id());
+					log.info("支付成功-----删除总订单成功！"+os.getOs_id());
 					//子订单和总订单先后修改完后，再跳转到订单页面，并发送订单信息
 					model.addAttribute("os", os);//当前支付菜单的信息
 					model.addAttribute("oiList", oiList);//当前支付菜单的信息
 					//并将此加餐的总订单的子订单信息转移到该客人第一个订单中
 					//1.获取存入Session的第一个总订单的信息
 					Orderitems os1 = (Orderitems) session.getAttribute("os_pay");
-					//System.out.println("获取存入Session的第一个总订单的信息---------"+os1.getOiList().get(0).getOs_id());
+					//log.info("获取存入Session的第一个总订单的信息---------"+os1.getOiList().get(0).getOs_id());
 					//1.1 如果session 没有值则不进行修改
 					if(os1 == null || os1.equals("")){
 						/*//当所有删除订单信息删除成功后，再将desk的session删除
@@ -197,8 +199,8 @@ public class AlipayAction {
 						int k = 0;
 						//2.批量修改加餐子订单的总订单id，                //如果加餐子订单的与第一个总订单的子订单的菜品一样，则直接修改子订单数量
 						for (Orderitem oi : oiList) {
-							System.out.println(os1.getOiList().get(0).getOs_id()+"//2.批量修改加餐子订单的总订单id，---------"+oi.getOi_id());
-							System.out.println("打印总订单id-------------"+os1.getOiList().get(0).getOs_id());
+							log.info(os1.getOiList().get(0).getOs_id()+"//2.批量修改加餐子订单的总订单id，---------"+oi.getOi_id());
+							log.info("打印总订单id-------------"+os1.getOiList().get(0).getOs_id());
 							k = orderitemServiceImpl.updateOrderitemOsidByOiid(os1.getOiList().get(0).getOs_id(), oi.getOi_id());
 							//并修改所有子订单的状态为1
 							orderitemServiceImpl.updateOrderitemPositionByOiid(1, oi.getOi_id());
@@ -207,7 +209,7 @@ public class AlipayAction {
 							float total = (oi.getOi_price()*oi.getOi_num());
 							orderitemsServiceImpl.updateOrderitemsPriceByOsid(total, os1.getOiList().get(0).getOs_id());
 						}
-						System.out.println("修改了"+k+"条数据----------------------");
+						log.info("修改了"+k+"条数据----------------------");
 						if(k != 0){
 							//3.清除掉加餐总订单的session
 							session.removeAttribute("os_pay");
@@ -216,30 +218,30 @@ public class AlipayAction {
 							model.addAttribute("os1", os1);
 							//5.将加餐的总订单彻底删除掉
 							int i1 = orderitemsServiceImpl.deleteOrderitemsByOsid(os_id);
-							System.out.println(os_id+"将加餐的总订单彻底删除掉--------"+i1);
+							log.info(os_id+"将加餐的总订单彻底删除掉--------"+i1);
 							if( i1 == 0){
-								System.out.println("彻底删除失败-------------");
+								log.info("彻底删除失败-------------");
 								return "error.jsp";
 							}
 							/*//当所有删除订单信息删除成功后，再将desk的session删除
 							session.removeAttribute("desk");*/
 							return "client/myMenu12.jsp";
 						}else{
-							System.out.println("删除失败-----------------------");
+							log.info("删除失败-----------------------");
 							return "error.jsp";
 						}
 					}
 				}else{
-					//System.out.println("支付成功-----删除总订单失败！"+os.getOs_id());
+					//log.info("支付成功-----删除总订单失败！"+os.getOs_id());
 					return "error.jsp";
 				}
 			}else{
-				System.out.println("子订单未完全清空");
+				log.info("子订单未完全清空");
 				return "error.jsp";
 			}
 		}else{
 			//该页面可做页面美工编辑
-			System.out.println("验证失败------------------------------");
+			log.info("验证失败------------------------------");
 			return "error.jsp";
 		}
 	}

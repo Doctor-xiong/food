@@ -5,6 +5,7 @@ import com.hyf.food.entity.ExpenseTableModel;
 import com.hyf.food.entity.Layui;
 import com.hyf.food.service.IExpenseService;
 import com.hyf.food.utils.PageUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+@Slf4j
 @Controller
 public class ExpenseAction {
 	@Autowired
@@ -32,9 +33,9 @@ public class ExpenseAction {
 	 */
 	@RequestMapping("queryAllExpense.action")
 	public @ResponseBody Layui queryAllExpense(Model model, HttpSession session, PageUtils page){
-		System.out.println(page.getLimit()+"jin---------"+page.getCurr());
+		log.info(page.getLimit()+"jin---------"+page.getCurr());
 		List<Expense> eList = ExpenseServiceImpl.findAllPage(page.before1(), page.after());
-		System.out.println("支出管理----时间："+eList.get(0).getEx_regtime());
+		log.info("支出管理----时间："+eList.get(0).getEx_regtime());
 		int count = ExpenseServiceImpl.count();
 		Layui layui = new Layui();
 		layui.setCount(count);
@@ -75,7 +76,7 @@ public class ExpenseAction {
 	
 	@RequestMapping("updateExpenseMsg.action")
 	public @ResponseBody String updateExpenseMsg(Model model,HttpSession session,Expense expense){
-		System.out.println("----------------"+expense.getEx_id());
+		log.info("----------------"+expense.getEx_id());
 		int i = ExpenseServiceImpl.updateExpenseMsg(expense);
 		if(i == 1){
 			return "success";
@@ -87,13 +88,13 @@ public class ExpenseAction {
 
     @RequestMapping("addExpenseMsg.action")
     public String addExpenseMsg(Model model,HttpSession session,@RequestBody Expense expense){
-		System.out.println("准备添加支出0------------------------------------------"+expense.getEx_name());
+		log.info("准备添加支出0------------------------------------------"+expense.getEx_name());
 		int i = ExpenseServiceImpl.addExpenseMsg(expense);
 		if(i == 1){
-			System.out.println("之处添加成功————————————————-"+i);
+			log.info("之处添加成功————————————————-"+i);
 			return "成功";
 		}else{
-			System.out.println("支出添加失败-----------------------");
+			log.info("支出添加失败-----------------------");
 			model.addAttribute("error", "添加失败！请重试。。。");
 			return "失败";
 		}
@@ -109,7 +110,7 @@ public class ExpenseAction {
 	@RequestMapping("queryExpenseMsgByEXregtime.action")
 	public @ResponseBody
 	ExpenseTableModel queryExpenseMsgByEXregtime(Model model, HttpSession session, Date regtime){
-		System.out.println("riqi ------------"+regtime);
+		log.info("riqi ------------"+regtime);
 		List<Expense> list = new ArrayList<Expense>();
 		list = ExpenseServiceImpl.queryExpenseMsgByRegtime(regtime);
 		ExpenseTableModel et = new ExpenseTableModel();

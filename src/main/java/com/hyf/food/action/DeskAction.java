@@ -7,6 +7,7 @@ import com.hyf.food.service.IDeskService;
 import com.hyf.food.service.IOrderitemService;
 import com.hyf.food.service.IOrderitemsService;
 import com.hyf.food.utils.QUcodeUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.util.List;
 
 
+@Slf4j
 @Controller
 public class DeskAction {
 	
@@ -38,7 +40,7 @@ public class DeskAction {
 	 */
 	@RequestMapping("clientLogin.action")
 	public String LoginDesk(Model model, Desk desk, HttpSession session){
-		System.out.println("餐桌登录---------"+desk.getD_password());
+		log.info("餐桌登录---------"+desk.getD_password());
 		//登录的时候 清除掉为again的session
 		session.removeAttribute("again");
 		Desk d = deskServiceImpl.queryDeskByIdAndPassword(desk);
@@ -60,12 +62,12 @@ public class DeskAction {
 						//存在子订单
 						//有，那么进入到选择页面
 						session.setAttribute("desk", d);
-						System.out.println("当餐桌显示有客时 但实际上没有客人 我们先查询是否有状态为0的总订单--------有");
+						log.info("当餐桌显示有客时 但实际上没有客人 我们先查询是否有状态为0的总订单--------有");
 						return "redirect:client/isMydesk1.jsp";
 					}else{
 						//不存在状态为0的子订单 那么就进入到空闲点餐模式 同时删除这个总订单
 						orderitemsService.deleteOrderitemsByOsid(osList.get(0).getOs_id());
-						System.out.println("不存在状态为0的子订单 那么就进入到空闲点餐模式 同时删除这个总订单");
+						log.info("不存在状态为0的子订单 那么就进入到空闲点餐模式 同时删除这个总订单");
 						session.setAttribute("desk", d);
 						return "redirect:queryRecommendMenu.do";
 					}
@@ -82,14 +84,14 @@ public class DeskAction {
 					}else{
 						//不存在状态为1的子订单 那么就进入到空闲点餐模式 同时删除这个总订单
 						orderitemsService.deleteOrderitemsByOsid(osList1.get(0).getOs_id());
-						System.out.println("不存在状态为1的子订单 那么就进入到空闲点餐模式 同时删除这个总订单");
+						log.info("不存在状态为1的子订单 那么就进入到空闲点餐模式 同时删除这个总订单");
 						session.setAttribute("desk", d);
 						return "redirect:queryRecommendMenu.do";
 					}
 				}else{
 					//没有状态为0或1的订单 但餐桌是有人状态  那么直接进入到空闲点餐模式
 					//或者有总订单为0 或1 但没有任何子订单信息 那么直接进入到空闲点餐模式
-					System.out.println("没有状态为0或1的订单 但餐桌是有人状态  那么直接进入到空闲点餐模式//或者有总订单为0 或1 但没有任何子订单信息 那么直接进入到空闲点餐模式");
+					log.info("没有状态为0或1的订单 但餐桌是有人状态  那么直接进入到空闲点餐模式//或者有总订单为0 或1 但没有任何子订单信息 那么直接进入到空闲点餐模式");
 					session.setAttribute("desk", d);
 					return "redirect:queryRecommendMenu.do";
 				}
@@ -100,7 +102,7 @@ public class DeskAction {
 				//当无客人时  正常点餐,并修改餐桌状态为1 有人
 				session.setAttribute("desk", d);
 				deskServiceImpl.updateDeskPositionByDid(1, desk.getD_id());
-				System.out.println("登录成功，正常点餐");
+				log.info("登录成功，正常点餐");
 				return "queryRecommendMenu.do";
 			}
 			else{
@@ -126,14 +128,14 @@ public class DeskAction {
 		Orderitems os = orderitemsService.queryOrderItemsByDidAndDateDescLimit1(desk.getD_id(), 1);
 		//根据总订单id查询所有子订单信息
 		if(os != null){
-			System.out.println("查找这个餐桌之前的一个已付款总订单---------"+os.getOiList().get(0).getOs_id());
+			log.info("查找这个餐桌之前的一个已付款总订单---------"+os.getOiList().get(0).getOs_id());
 			model.addAttribute("os1", os);
 			session.setAttribute("os_pay", os);
 			session.setAttribute("again", "again");
-			System.out.println("我的餐桌继续加餐-------------"+os.getOiList().get(0).getOs_id());
+			log.info("我的餐桌继续加餐-------------"+os.getOiList().get(0).getOs_id());
 			return "client/againFood.jsp";
 		}else{
-			System.out.println("查询到了多个正在进行的总订单。请联系前台服务员");
+			log.info("查询到了多个正在进行的总订单。请联系前台服务员");
 			model.addAttribute("msg", "查询到了多个正在进行的总订单。请联系前台服务员");
 			return "error.jsp";
 		}
@@ -160,27 +162,27 @@ public class DeskAction {
 			for (Orderitem oi : oiList) {
 				 k = orderitemService.updateOrderitemPositionByOiid(2, oi.getOi_id())+k;
 			}
-			System.out.println(k+"-------------结束用餐--------------"+oiList.size());
+			log.info(k+"-------------结束用餐--------------"+oiList.size());
 			if(k == oiList.size()){
-				System.out.println("子订单状态修改为2 成功---------");
+				log.info("子订单状态修改为2 成功---------");
 				//将餐桌状态修改为0 空闲
 				int j = deskServiceImpl.updateDeskPositionByDid(0, desk.getD_id());
 				if(j == 1){
-					System.out.println("餐桌状态修改成功++++++++++++++====");
+					log.info("餐桌状态修改成功++++++++++++++====");
 					//当所有删除订单信息删除成功后，再将desk的session删除
 					session.removeAttribute("desk");
 					//session.removeAttribute("again");
 					return "redirect:leaveDesk.jsp";
 				}else{
-					System.out.println("餐桌状态修改失败---------------------");
+					log.info("餐桌状态修改失败---------------------");
 					return "error.jsp";
 				}
 			}else{
-				System.out.println("子订单状态修改为2  失败——————————————————————————");
+				log.info("子订单状态修改为2  失败——————————————————————————");
 				return "error.jsp";
 			}
 		}else{
-			System.out.println("修改总订单失败");
+			log.info("修改总订单失败");
 			return "error.jsp";
 		}
 	}
@@ -199,28 +201,28 @@ public class DeskAction {
 		Orderitems os = orderitemsService.queryOrderitemsByPosition(0, desk.getD_id()).get(0);
 		List<Orderitem> oiList = orderitemService.queryItemByOsid(os.getOs_id());
 		if(os != null){
-			System.out.println("查询到需要清空的付尾款的菜单");
+			log.info("查询到需要清空的付尾款的菜单");
 			//修改所有未付款的子订单信息
 			int k = 0;
 			for (Orderitem oi : oiList) {
 				k = orderitemService.updateOrderitemPositionByOiid(3, oi.getOi_id())+k;
 			}
 			if(k == oiList.size()){
-				System.out.println("已将所有子订单信息修改为状态 3------------");
+				log.info("已将所有子订单信息修改为状态 3------------");
 				//继续修改总订单状态
 				int i = orderitemsService.updateOrderitemsPositionByOsid(3, os.getOs_id());
 				if( i == 1){
-					System.out.println("总订单状态修改成功");
+					log.info("总订单状态修改成功");
 					//返回页面
 					return "redirect:queryRecommendMenu.do";
 				}else{
-					System.out.println("总订单状态修改失败");
+					log.info("总订单状态修改失败");
 				}
 			}else{
-				System.out.println("子订单信息修改失败---------------");
+				log.info("子订单信息修改失败---------------");
 			}
 		}
-		System.out.println("为查询到总订单信息------清除未付款");
+		log.info("为查询到总订单信息------清除未付款");
 		return "error.jsp";
 	}
 	
@@ -237,7 +239,7 @@ public class DeskAction {
 		Desk desk = deskServiceImpl.queryDeskById(did);
 		
 	 	String text = "http://192.168.43.112:8082/food/clientLogin.action?d_id="+desk.getD_id()+"&d_password="+desk.getD_password(); //一号桌登录
-	    System.out.println("随机码： " + text);
+	    log.info("随机码： " + text);
 	    int width = 500; // 二维码图片的宽
 	    int height = 500; // 二维码图片的高
 	    String format = "png"; // 二维码图片的格式
@@ -258,10 +260,10 @@ public class DeskAction {
 	    String newFileNameRes = path+"/"+newName+".png";
 	    // 生成二维码图片，并返回图片路径
 	    String pathName = QUcodeUtil.generateQRCode(text, width, height, format, newFileName);
-	    System.out.println("生成二维码的图片路径： " + pathName);
+	    log.info("生成二维码的图片路径： " + pathName);
 	 
         String content = QUcodeUtil.parseQRCode(pathName);
-        System.out.println(newFileName+"解析出二维码的图片的内容为： " + content);
+        log.info(newFileName+"解析出二维码的图片的内容为： " + content);
         return newFileNameRes;
 	}
 	
@@ -289,7 +291,7 @@ public class DeskAction {
 		if(desk.getD_position()==(long)1){
 		//桌面状态为1则将信息找出来
 		Orderitems order= orderitemsService.queryOrderItemsByDidAndDateDescLimit1(d_id, 1);
-		System.out.println("----------------------------------");
+		log.info("----------------------------------");
 		if(order!=null){
 			//如果能找到这个桌子的订单则将信息传过去
 			model.addAttribute("size", order.getOiList().size());
@@ -309,18 +311,18 @@ public class DeskAction {
 		*/
 		@RequestMapping("accountOrder.action")
 		public void accountOrder(String os_id){
-		System.out.println("************************"+os_id);
+		log.info("************************"+os_id);
 		long id = Long.parseLong(os_id);
-		System.out.println("---+++++++++++++++++++++++++++++++------"+id);
+		log.info("---+++++++++++++++++++++++++++++++------"+id);
 		Orderitems order = orderitemsService.queryOrderitemsByOsId(id);
-		System.out.println("我收到修改请求了"+order);
+		log.info("我收到修改请求了"+order);
 		deskServiceImpl.updateDeskPositionByDid(0, order.getD_id());
 		orderitemsService.updateOrderitemsPositionByOsid(2, order.getOs_id());
 		List<Orderitem> list = order.getOiList();
 		for (Orderitem orderitem : list) {
 		orderitemService.updateOrderitemPositionByOiid(2,orderitem.getOi_id());
 		}
-		System.out.println("wo修改成功了");
+		log.info("wo修改成功了");
 		}
 		/**
 		* 根据桌号删除桌子
@@ -346,7 +348,7 @@ public class DeskAction {
 		*/
 		@RequestMapping("updateDeskPositionByName.action")
 		public void updateDeskPositionByName(long d_id){
-			System.out.println("根据桌名修改桌子状态"+d_id);
+			log.info("根据桌名修改桌子状态"+d_id);
 		//修改状态为0
 		int i = orderitemsService.deleteOrderitemsByDidAndPosition(d_id);
 		int j = orderitemService.deleteOrderitemByOiid(d_id);

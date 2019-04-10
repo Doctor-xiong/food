@@ -5,6 +5,7 @@ import com.hyf.food.entity.Employee;
 import com.hyf.food.entity.Layui;
 import com.hyf.food.service.IEmployeeService;
 import com.hyf.food.utils.PageUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Controller
 public class EmployeeAction {
 	
@@ -32,7 +33,7 @@ public class EmployeeAction {
 	@RequestMapping("queryAllEmployee.action")
 	public @ResponseBody
 	Layui queryAllEmployee(Model model, HttpSession session, PageUtils page){
-		System.out.println(page.getLimit()+"jin---------"+page.getCurr());
+		log.info(page.getLimit()+"jin---------"+page.getCurr());
 		List<Employee> eList = EmployeeServiceImpl.findAllPage(page.before1(), page.after());
 		int count = EmployeeServiceImpl.count();
 		Layui layui = new Layui();
@@ -57,7 +58,7 @@ public class EmployeeAction {
 	
 	@RequestMapping("updateEmployeeMsg.action")
 	public @ResponseBody String updateEmployeeMsg(Model model,HttpSession session,Employee employee){
-		System.out.println("----------------"+employee.getE_id());
+		log.info("----------------"+employee.getE_id());
 		int i = EmployeeServiceImpl.updateEmployeeMsg(employee);
 		if(i == 1){
 			return "success";
@@ -69,7 +70,7 @@ public class EmployeeAction {
 	
 	@RequestMapping("addEmployeeMsg.action")
 	public String addEmployeeMsg(Model model,HttpSession session,@RequestBody Employee employee){
-		System.out.println("employee-------"+employee.getE_regdate());
+		log.info("employee-------"+employee.getE_regdate());
 		int i = EmployeeServiceImpl.addEmployeeMsg(employee);
 		if(i == 1){
 			return "成功";

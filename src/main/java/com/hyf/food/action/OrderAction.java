@@ -5,6 +5,7 @@ import com.hyf.food.service.IMenuService;
 import com.hyf.food.service.IOrderitemService;
 import com.hyf.food.service.IOrderitemsService;
 import com.hyf.food.utils.PageUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+@Slf4j
 @Controller
 public class OrderAction {
 	
@@ -43,33 +44,33 @@ public class OrderAction {
 		Menu menu = menuServiceImpl.queryMenuById(m_id1);
 		//查询该餐桌是否有状态为0的总订单
 		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
-		//System.out.println("bbbbbbbb"+osList.get(0).getos_regtime());
+		//log.info("bbbbbbbb"+osList.get(0).getos_regtime());
 		//如果没有则 创建一个该餐桌的总订单
 		if(osList.size() == 0){
 			Orderitems os = new Orderitems();
 			os.setD_id(desk.getD_id());
 			int i = orderitemsServiceImpl.addOrderitems(os);
 			if(i == 1){
-				System.out.println("成功创建一个该餐桌的总订单----获取到返回的os_id"+os.getOs_id());
+				log.info("成功创建一个该餐桌的总订单----获取到返回的os_id"+os.getOs_id());
 				//根据菜品信息创建一个子订单
 				Orderitem oi = new Orderitem(os.getOs_id(),menu.getM_id(),(long)1,menu.getM_price());
 				int j = orderitemServiceImpl.addOrderitem(oi);
 				if(j == 1){
-					System.out.println("成功：根据菜品信息创建一个子订单");
+					log.info("成功：根据菜品信息创建一个子订单");
 					return "1";
 				}else{
-					System.out.println("失败：根据菜品信息创建一个子订单");
+					log.info("失败：根据菜品信息创建一个子订单");
 					return "0";
 				}
 				
 			}else{
-				System.out.println("失败：创建一个该餐桌的总订单-----------");
+				log.info("失败：创建一个该餐桌的总订单-----------");
 			}
 		}
 		//如果有一个，则获取该总订单信息
 		if(osList.size() == 1){
 			Orderitems os1 = osList.get(0);
-			System.out.println("aaaaaaaaaaaa----------"+os1.getOs_id()+os1.getD_id());
+			log.info("aaaaaaaaaaaa----------"+os1.getOs_id()+os1.getD_id());
 			//根据菜品id查找总订单中的子订单（总订单中不能存在相同菜品的子订单）
 			Orderitem oi1 = orderitemServiceImpl.queryOrderitemByMidAndOsid(menu.getM_id(), os1.getOs_id());
 			//如果为null  则根据菜品信息创建一个子订单
@@ -77,27 +78,27 @@ public class OrderAction {
 				Orderitem oi2 = new Orderitem(os1.getOs_id(),menu.getM_id(),(long)1,menu.getM_price());
 				int k = orderitemServiceImpl.addOrderitem(oi2);
 				if(k ==1 ){
-					System.out.println("成功：如果为null  则根据菜品信息创建一个子订单");
+					log.info("成功：如果为null  则根据菜品信息创建一个子订单");
 					return "1";
 				}else{
-					System.out.println("失败：如果为null  则根据菜品信息创建一个子订单");
+					log.info("失败：如果为null  则根据菜品信息创建一个子订单");
 					return "0";
 				}
 			}else{
 				//如果存在 则直接修改菜品信息
 				int l = orderitemServiceImpl.updateOrderitemAdd(oi1);
 				if(l ==1 ){
-					System.out.println("成功：如果存在 则直接修改菜品信息"+oi1.getOi_id());
+					log.info("成功：如果存在 则直接修改菜品信息"+oi1.getOi_id());
 					return "1";
 				}else{
-					System.out.println("失败：如果存在 则直接修改菜品信息");
+					log.info("失败：如果存在 则直接修改菜品信息");
 					return "0";
 				}
 			}
 		}
 		//如果有多个总订单，则报错
 		else{
-			System.out.println("如果有多个总订单，则报错-------------"+osList.size());
+			log.info("如果有多个总订单，则报错-------------"+osList.size());
 			return "0";
 		}
 	}
@@ -120,7 +121,7 @@ public class OrderAction {
 		
 		//没有
 		if(osList.size() == 0){
-			System.out.println("失败：查询该餐桌是否有状态为0的总订单---");
+			log.info("失败：查询该餐桌是否有状态为0的总订单---");
 			return "0";
 		}
 		if(osList.size() == 1){
@@ -128,7 +129,7 @@ public class OrderAction {
 			//根据菜品id查找总订单中的子订单（总订单中不能存在相同菜品的子订单）
 			Orderitem oi1 = orderitemServiceImpl.queryOrderitemByMidAndOsid(menu.getM_id(), os1.getOs_id());
 			if(oi1 == null){
-				System.out.println("失败：根据菜品id查找总订单中的子订单");
+				log.info("失败：根据菜品id查找总订单中的子订单");
 				return "0";
 			}else{
 				
@@ -139,20 +140,20 @@ public class OrderAction {
 					if(oi2.getOi_num() == 0){
 						//如果数量等于0，那么彻底删除这个子订单
 						orderitemServiceImpl.deleteOrderitemByOiid(oi1.getOi_id());
-						System.out.println("成功：如果数量等于0，那么彻底删除这个子订单");
+						log.info("成功：如果数量等于0，那么彻底删除这个子订单");
 						return "1";
 					}else{
-						System.out.println("成功：如果存在 则直接修改菜品信息"+oi1.getOi_id());
+						log.info("成功：如果存在 则直接修改菜品信息"+oi1.getOi_id());
 						return "1";
 					}
 				}else{
-					System.out.println("失败：如果存在 则直接修改菜品信息");
+					log.info("失败：如果存在 则直接修改菜品信息");
 					return "0";
 				}
 			}
 		}
 		else{
-			System.out.println("其他情况---------------");
+			log.info("其他情况---------------");
 			return "0";
 		}
 	}
@@ -165,7 +166,7 @@ public class OrderAction {
 	 */
 	@RequestMapping("mydesk.do")
 	public String mydesk(HttpSession session,Model model){
-		System.out.println("获取我的餐桌信息");
+		log.info("获取我的餐桌信息");
 		Desk desk = (Desk) session.getAttribute("desk");
 		//查询该餐桌是否有状态为0的总订单
 		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
@@ -184,7 +185,7 @@ public class OrderAction {
 			return "client/mydesk.jsp";
 			
 		}else{
-			System.out.println("我的餐桌没有任何总订单");
+			log.info("我的餐桌没有任何总订单");
 			return "redirect:client/mydesk.jsp";
 		}
 	}
@@ -197,7 +198,7 @@ public class OrderAction {
 	 */
 	@RequestMapping("isEmpty.do")
 	public String isEmpty(String os_id,Model model){
-		System.out.println("清空餐桌----------"+os_id);
+		log.info("清空餐桌----------"+os_id);
 		if(os_id == null || os_id.equals("")){
 			return "mydesk.action"; 
 		}else{
@@ -210,10 +211,10 @@ public class OrderAction {
 			for (Orderitem oi : oiList) {
 				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(3,oi.getOi_id());
 				if(i == 0){
-					System.out.println("清空餐桌-----删除子菜单时失败！"+oi.getOi_id());
+					log.info("清空餐桌-----删除子菜单时失败！"+oi.getOi_id());
 					break;
 				}else{
-					System.out.println("清空餐桌-----删除子菜单时成功！"+oi.getOi_id());
+					log.info("清空餐桌-----删除子菜单时成功！"+oi.getOi_id());
 					j++;
 				}
 			}
@@ -221,14 +222,14 @@ public class OrderAction {
 			if(j == oiList.size()){
 				int i = orderitemsServiceImpl.updateOrderitemsPositionByOsid(3,os_id1);
 				if(i == 1){
-					System.out.println("清空餐桌-----删除总订单成功！"+os.getOs_id());
+					log.info("清空餐桌-----删除总订单成功！"+os.getOs_id());
 					return "redirect:mydesk.do";
 				}else{
-					System.out.println("清空餐桌-----删除总订单失败！"+os.getOs_id());
+					log.info("清空餐桌-----删除总订单失败！"+os.getOs_id());
 					return "error.jsp";
 				}
 			}else{
-				System.out.println("子订单未完全清空");
+				log.info("子订单未完全清空");
 				return "error.jsp";
 			}
 		}
@@ -243,7 +244,7 @@ public class OrderAction {
 	@RequestMapping("queryAllOrderitemsMsg.action")
 	public @ResponseBody
 	Layui queryAllOrderitems(Model model, HttpSession session, PageUtils page){
-		System.out.println(page.getLimit()+"jin---------"+page.getCurr());
+		log.info(page.getLimit()+"jin---------"+page.getCurr());
 		List<Orderitems> oList = orderitemsServiceImpl.findAllPage(page.before(), page.after());
 		int count = orderitemsServiceImpl.count();
 		Layui layui = new Layui();
@@ -308,7 +309,7 @@ public class OrderAction {
 	 */
 	@RequestMapping("queryOrderitemsMsgByOsregtime.action")
 	public @ResponseBody OredritemsTableModel queryOrderitemsMsgByOsregtime(Model model,HttpSession session,Date regtime){
-		System.out.println("riqi ------------"+regtime);
+		log.info("riqi ------------"+regtime);
 		List<Orderitems> list = new ArrayList<Orderitems>();
 		list = orderitemsServiceImpl.queryOrderitemsByRegtime(regtime);
 		OredritemsTableModel ot = new OredritemsTableModel();
@@ -326,7 +327,7 @@ public class OrderAction {
 	 */
 	@RequestMapping("queryOrderitemMsgByOsid.action")
 	public String queryOrderitemMsgByOsid(Model model,HttpSession session,PageUtils page,String os_id){
-		System.out.println(page.getLimit()+"jin--------"+os_id+"--------"+page.getCurr());
+		log.info(page.getLimit()+"jin--------"+os_id+"--------"+page.getCurr());
 		long osid = Long.parseLong(os_id);
 		List<Orderitem> oList = orderitemServiceImpl.queryItemByOsidAndLimit(osid,page.before(),page.after());
 		int count = orderitemServiceImpl.count(osid);
