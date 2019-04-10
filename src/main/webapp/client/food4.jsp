@@ -62,13 +62,13 @@
             <div id="menu-num">
                 <ul>
                     <li id="add_${index.count }" data-method="confirmTrans"><i class="layui-icon layui-icon-up  "
-                                                                               style="font-size: 20px; color: #ed9715;"></i>
+                                                                               style="font-size: 20px; color: #50ff04;"></i>
                     </li>
                     <li id="li_${index.count }">
                         <span id="number_${index.count }">${menu.m_number }</span>
                     </li>
                     <li id="dec_${index.count }" data-method="confirmTrans"><i class="layui-icon layui-icon-down"
-                                                                               style="font-size: 20px; color: #ccc;"></i>
+                                                                               style="font-size: 20px; color: #50ff04;"></i>
                     </li>
                 </ul>
             </div>

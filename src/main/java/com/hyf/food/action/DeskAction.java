@@ -50,7 +50,7 @@ public class DeskAction {
 		List<Orderitems> osList1 = orderitemsService.queryOrderitemsByPosition(1, desk.getD_id());
 		if(d == null){
 			//登录失败
-			model.addAttribute("msg","抱歉，此二维码已失效，请联系前台服务员。");
+			model.addAttribute("msg","抱歉，登录失败，请联系前台服务员。");
 			return "index.jsp";
 		}else{
 			if(d.getD_position() == 1){

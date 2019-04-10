@@ -6,12 +6,13 @@ import com.hyf.food.mapper.MenuMapper;
 import com.hyf.food.mapper.OrderitemMapper;
 import com.hyf.food.mapper.OrderitemsMapper;
 import com.hyf.food.service.IOrderitemService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class OrderitemServiceImpl implements IOrderitemService {
 
@@ -40,14 +41,14 @@ public class OrderitemServiceImpl implements IOrderitemService {
     @Override
     public int addOrderitem(Orderitem oi) {
         //插入一个子订单
-        System.out.println("总订单的价格正在修改----------------------------------------------");
+        log.info("总订单的价格正在修改----------------------------------------------");
         int i = orderitemMapper.addOrderitem(oi);
         if (i == 1) {
             //获取菜品单价
             Menu menu = menuMapper.queryMenuById(oi.getM_id());
             //再修改总订单的总价
             int j = orderitemsMapper.updateOrderitemsPriceByOsid(menu.getM_price(), oi.getOs_id());
-            System.out.println("总订单的价格已修改---------------------------------------");
+            log.info("总订单的价格已修改---------------------------------------");
             return j;
         } else {
             return i;
@@ -67,7 +68,7 @@ public class OrderitemServiceImpl implements IOrderitemService {
             //获取菜品单价
             Menu menu = menuMapper.queryMenuById(oi.getM_id());
             int j = orderitemsMapper.updateOrderitemsPriceByOsid(-menu.getM_price(), oi.getOs_id());
-            System.out.println("总订单的价格已修改---------------------------------------");
+            log.info("总订单的价格已修改---------------------------------------");
             return j;
         }
         return i;
@@ -86,7 +87,7 @@ public class OrderitemServiceImpl implements IOrderitemService {
             //获取菜品单价
             Menu menu = menuMapper.queryMenuById(oi.getM_id());
             int j = orderitemsMapper.updateOrderitemsPriceByOsid(menu.getM_price(), oi.getOs_id());
-            System.out.println("总订单的价格已修改--++++++++++++++++++++++++++++++++++++++++------" + orderitemsMapper.queryOrderitemsByOsId(oi.getOs_id()).getOs_allprice());
+            log.info("总订单的价格已修改--++++++++++++++++++++++++++++++++++++++++------" + orderitemsMapper.queryOrderitemsByOsId(oi.getOs_id()).getOs_allprice());
             return j;
         }
         return i;
