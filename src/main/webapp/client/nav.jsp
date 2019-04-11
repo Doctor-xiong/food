@@ -62,7 +62,7 @@
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header" style="position: fixed;top:0px;width: 100%;">
-        <div class="layui-col-xs18 layui-col-sm6 layui-col-md4">
+        <div class="layui-col-xs18 layui-col-sm6 layui-col-md4" style="background-color: #eaeaea">
             <ul class="layui-nav layui-bg-cyan" style="text-align: center;  font-size: 16px;font-weight: 800px;">
                 <li class="layui-nav-item" id="desknumber"><a href="javascript:;">${desk.d_name }</a></li>
                 <li class="layui-nav-item layui-this"><a
@@ -74,7 +74,7 @@
 
     <div class="layui-side layui-bg-black" style="width: 100px;">
         <div class="layui-row" style="width: 100px;">
-            <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="background-color: #fbfbfb">
 
                 <ul class="layui-nav layui-nav-tree layui-inline layui-bg-cyan " lay-filter="demo"
                     style="margin-right: 10px;">

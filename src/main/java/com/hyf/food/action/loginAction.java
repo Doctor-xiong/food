@@ -47,7 +47,7 @@ public class loginAction {
 			log.info("登录中——————————————————————");
 			return "countDesk.action";
 		}else{
-			model.addAttribute("erroe", "登录失败！用户名或密码错误。。。");
+			model.addAttribute("error", "登录失败！用户名或密码错误。。。");
 			return "service/login.jsp";
 		}
 		

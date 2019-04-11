@@ -4,69 +4,192 @@
 <html>
 <head>
 
-    <title>登录餐桌</title>
+    <title>My JSP 'login.jsp' starting page</title>
 
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css" media="all">
-    <script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+    <!--
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    -->
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/layui/layui.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css">
     <style type="text/css">
         body {
-            margin: 0px;
-            padding: 0px;
             width: 100%;
             height: 100%;
+            margin: 0px;
+            padding: 0px;
         }
 
-        #q {
+        #backgroud {
+            width: 100%;
+            height: 100%;
+            background-size: 100% 100%;
+        }
+
+        #title {
+            width: 260px;
+            height: 130px;
+            color: #D2B48C;
+            font-weight: bolder;
+            font-size: 300%;
             text-align: center;
-            margin-right: 80px;
-            margin-top: 100px;
+            margin-left: 580px;
+        }
+
+        .login-login {
+            width: 400px;
+            height: 320px;
+            margin-top: 20px;
+            background-color: #fffdfe;
+            margin: 100px 37.5%
+        }
+
+        .login-w {
+            width: 346px;
+            border-bottom: 1px solid #CCCCCC;
+            margin: auto;
+            padding-top: 20px;
+        }
+
+        .login-table {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .login-table div {
+            margin-left: 10px;
+        }
+
+        .login-title-text-2 {
+            width: 50px;
+            height: 33px;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-right: 62px;
+        }
+
+        #chk {
+            diaplay: block;
+            float: left;
+        }
+
+        #rem {
+            margin-left: 5px;
+            display: bolck;
+            float: left;
+
+        }
+
+        #nameError {
+            height: 10px;
+        }
+
+        #btn {
+            background-image: url(img/bj1.jpg);
+        }
+
+        .error {
+            color: red;
+            font-size: 10px;
         }
     </style>
+
+    <script type="text/javascript">
+        function validate(obj) {
+            //获取input对象
+            var value = obj.value;
+            //根据id获取span标签的对象
+            var spanObj = document.getElementById("nameError");
+            //判断用户名是否为空
+            if (value == "") {
+                spanObj.innerHTML = "用户名不能为空！";
+                spanObj.className = "error";
+                return;
+            }
+            //判断用户名的长度
+            if (value.length < 2 || value.length > 20) {
+                spanObj.innerHTML = "用户名长度不合法！";
+                spanObj.className = "error";
+                return;
+            }
+            //合法内容
+            spanObj.innerHTML = "";
+        }
+
+        function pwvalidate(obj) {
+            //获取input对象
+            var value = obj.value;
+            //根据id获取span标签的对象
+            var spanObj = document.getElementById("pswError");
+            //判断用户名是否为空
+            if (value == "") {
+                spanObj.innerHTML = "密码不能为空！";
+                spanObj.className = "error";
+                return;
+            }
+            //判断用户名的长度
+            if (value.length < 6 || value.length > 20) {
+                spanObj.innerHTML = "密码长度不合法！";
+                spanObj.className = "error";
+                return;
+            }
+            //合法内容
+            spanObj.innerHTML = "";
+        }
+
+    </script>
+
 </head>
 
 <body>
-<div id="q" class="layui-col-xs18 layui-col-sm6 layui-col-md4">
-    <form class="layui-form" action="${pageContext.request.contextPath }/clientLogin.action">
-        <label class="layui-form-label" style="width: 100%;text-align: center;">餐桌登录系统</label>
-        <div class="layui-form-item">
-            <label class="layui-form-label">输入框</label>
-            <div class="layui-input-block">
-                <input type="text" name="d_id" required lay-verify="required" placeholder="请输入id" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码框</label>
-            <div class="layui-input-inline">
-                <input type="password" name="d_password" required lay-verify="required" placeholder="请输入密码"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit style="width: 50%">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary" style="width: 30%">重置</button>
-            </div>
-        </div>
-    </form>
+<div id="backgroud">
+    <div id="title" style="margin-left: 650px;">
+        <br/>
+        <span>自助点餐后台管理系统</span>
+    </div>
+    <div class="login-login">
+        <div class="login-w">
+            <form class="layui-form" action="${pageContext.request.contextPath }/clientLogin.action">
+                <div class="login-table">
+                    <div class="layui-form-item">
+                        <i class="layui-icon layui-icon-username" style="font-size: 30px; color: #1E9FFF;"></i>
+                        <div class="layui-input-block">
+                            <input type="text" name="d_id" required lay-verify="required" placeholder="请输入员工编号"
+                                   autocomplete="off" class="layui-input" onblur="validate(this);"
+                                   autofocus="autofocus">
+                        </div>
+                        <span id="nameError"></span>
+                    </div>
+                    <div>
+                        <i class="layui-icon layui-icon-password" style="font-size: 30px; color: #1E9FFF;"></i>
+                        <div class="layui-input-block">
+                            <input type="password" name="d_password" required lay-verify="required" placeholder="请输入密码"
+                                   autocomplete="off" class="layui-input" placeholder="请输入密码"
+                                   onblur="pwvalidate(this);" autofocus="autofocus">
+                        </div>
+                        <span id="pswError"></span>
+                    </div>
 
-    <script>
-        //Demo
-        layui.use('form', function () {
-            var form = layui.form;
-
-            //监听提交
-            form.on('submit(formDemo)', function (data) {
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
-        });
-    </script>
+                    <div style="color: red;">${error }</div>
+                    <a class="layui-form layui-btn layui-btn-lg layui-btn-primary layui-btn-radius" style="text-align: center" href="/user.action" target="_blank">用户注册</a>
+                    <button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
+
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+    });
+</script>
 </html>

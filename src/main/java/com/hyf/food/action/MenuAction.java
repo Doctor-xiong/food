@@ -107,19 +107,19 @@ public class MenuAction {
 		if(osList.size() == 0){
 			log.info("获取所有推荐菜品:如果没有总订单，则直接返回");
 			model.addAttribute("menu", mList);
-			if(m_type.equals("酒水饮料")){
+			if("酒水饮料".equals(m_type)){
 				return "client/drink.jsp";
 			}
-			else if(m_type.equals("精致小炒")){
+			else if("精致小炒".equals(m_type)){
 				return "client/food1.jsp";
 			}
-			else if(m_type.equals("美味大餐")){
+			else if("美味大餐".equals(m_type)){
 				return "client/food2.jsp";
 			}
-			else if(m_type.equals("招牌干锅")){
+			else if("招牌干锅".equals(m_type)){
 				return "client/food3.jsp";
 			}
-			else if(m_type.equals("营养靓汤")){
+			else if("营养靓汤".equals(m_type)){
 				return "client/food4.jsp";
 			}else{
 				return "client/orderFood.jsp";
@@ -131,19 +131,19 @@ public class MenuAction {
 			if(oiList.size() == 0){
 				model.addAttribute("bageNum", 0);
 				model.addAttribute("menu", mList);
-				if(m_type.equals("酒水饮料")){
+				if("酒水饮料".equals(m_type)){
 					return "client/drink.jsp";
 				}
-				else if(m_type.equals("精致小炒")){
+				else if("精致小炒".equals(m_type)){
 					return "client/food1.jsp";
 				}
-				else if(m_type.equals("美味大餐")){
+				else if("美味大餐".equals(m_type)){
 					return "client/food2.jsp";
 				}
-				else if(m_type.equals("招牌干锅")){
+				else if("招牌干锅".equals(m_type)){
 					return "client/food3.jsp";
 				}
-				else if(m_type.equals("营养靓汤")){
+				else if("营养靓汤".equals(m_type)){
 					return "client/food4.jsp";
 				}else{
 					return "client/orderFood.jsp";
@@ -162,19 +162,19 @@ public class MenuAction {
 				}
 				model.addAttribute("bageNum", bageNum);
 				model.addAttribute("menu", mList);
-				if(m_type.equals("酒水饮料")){
+				if("酒水饮料".equals(m_type)){
 					return "client/drink.jsp";
 				}
-				else if(m_type.equals("精致小炒")){
+				else if("精致小炒".equals(m_type)){
 					return "client/food1.jsp";
 				}
-				else if(m_type.equals("美味大餐")){
+				else if("美味大餐".equals(m_type)){
 					return "client/food2.jsp";
 				}
-				else if(m_type.equals("招牌干锅")){
+				else if("招牌干锅".equals(m_type)){
 					return "client/food3.jsp";
 				}
-				else if(m_type.equals("营养靓汤")){
+				else if("营养靓汤".equals(m_type)){
 					return "client/food4.jsp";
 				}else{
 					return "client/orderFood.jsp";
@@ -184,19 +184,19 @@ public class MenuAction {
 		else{
 			log.info("获取所有推荐菜品:其他情况----");
 			model.addAttribute("menu", mList);
-			if(m_type.equals("酒水饮料")){
+			if("酒水饮料".equals(m_type)){
 				return "client/drink.jsp";
 			}
-			else if(m_type.equals("精致小炒")){
+			else if("精致小炒".equals(m_type)){
 				return "client/food1.jsp";
 			}
-			else if(m_type.equals("美味大餐")){
+			else if("美味大餐".equals(m_type)){
 				return "client/food2.jsp";
 			}
-			else if(m_type.equals("招牌干锅")){
+			else if("招牌干锅".equals(m_type)){
 				return "client/food3.jsp";
 			}
-			else if(m_type.equals("营养靓汤")){
+			else if("营养靓汤".equals(m_type)){
 				return "client/food4.jsp";
 			}else{
 				return "client/orderFood.jsp";
@@ -204,7 +204,6 @@ public class MenuAction {
 		}
 	}
 	
-	////////////////刘超 3.1新增///////////////////////////
 	/**
 	* 分页查询所有菜品信息
 	* @param model
@@ -247,7 +246,6 @@ public class MenuAction {
 	public void onsaleMenu(Long m_id){
 		menuService.onsaleMenu(m_id);
 	}
-	////////////////刘超 3.2新增///////////////////////////
 	/**
 	* 添加新菜品
 	*/
