@@ -114,7 +114,6 @@
             }
             //判断用户名的长度
             if (value.length < 2 || value.length > 20) {
-                spanObj.innerHTML = "用户名长度不合法！";
                 spanObj.className = "error";
                 return;
             }
@@ -135,7 +134,6 @@
             }
             //判断用户名的长度
             if (value.length < 6 || value.length > 20) {
-                spanObj.innerHTML = "密码长度不合法！";
                 spanObj.className = "error";
                 return;
             }
@@ -151,7 +149,7 @@
 <div id="backgroud">
     <div id="title" style="margin-left: 650px;">
         <br/>
-        <span>自助点餐后台管理系统</span>
+        <span>自助点餐系统</span>
     </div>
     <div class="login-login">
         <div class="login-w">
@@ -177,6 +175,7 @@
                     </div>
 
                     <div style="color: red;">${error }</div>
+                    <div style="color: red;">${msg }</div>
                     <a class="layui-form layui-btn layui-btn-lg layui-btn-primary layui-btn-radius" style="text-align: center" href="/user.action" target="_blank">用户注册</a>
                     <button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">提交</button>
                 </div>

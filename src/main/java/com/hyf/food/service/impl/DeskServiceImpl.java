@@ -77,6 +77,16 @@ public class DeskServiceImpl implements IDeskService {
         return deskMapper.deleteDeskByName(name);
     }
 
+    @Override
+    public Desk deleteDeskById(Long id) {
+        return deskMapper.deleteDeskById(id);
+    }
+
+    @Override
+    public int changeUserStatus(Long id) {
+        return deskMapper.changeUserStatus(id);
+    }
+
     /**
      * 添加桌子
      *

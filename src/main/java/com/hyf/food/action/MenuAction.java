@@ -45,6 +45,9 @@ public class MenuAction {
 	public String queryRecommendMenu(Model model,HttpSession session){
 		log.info("获取所有推荐菜品信息");
 		Desk desk = (Desk) session.getAttribute("desk");
+		//用于前端显示用户名
+		model.addAttribute("name",desk.getD_name());
+		model.addAttribute("d_id",desk.getD_id());
 		//查询所有菜单
 		List<Menu> mList = menuService.queryMenuByPosition2();
 		

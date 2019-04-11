@@ -3,12 +3,15 @@ package com.hyf.food.action;
 import com.hyf.food.entity.Admin;
 import com.hyf.food.entity.Employee;
 import com.hyf.food.service.IAdminService;
+import com.hyf.food.service.IDeskService;
 import com.hyf.food.service.IEmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +25,9 @@ public class loginAction {
 	
 	@Autowired
 	private IEmployeeService employeeServiceImpl;
-	
+
+	@Autowired
+	private IDeskService deskService;
 	/***
 	 * 按ID查询员工信息
 	 * @param model
@@ -65,4 +70,19 @@ public class loginAction {
 		return "service/login.jsp";
 	}
 
+	/**
+	 * 用户退出时候的操作
+	 */
+	@RequestMapping("myLoginOut.action")
+	public String loginOut(@RequestParam("d_id") Long id,Model model){
+		if(ObjectUtils.isEmpty(id) ||  id < 0){
+			return "clientLogin.jsp";
+		}
+		int res = deskService.changeUserStatus(id);
+		if(res < 0){
+			model.addAttribute("error","改变用户状态时候失败");
+			return "error.jap";
+		}
+		return "clientLogin.jsp";
+	}
 }

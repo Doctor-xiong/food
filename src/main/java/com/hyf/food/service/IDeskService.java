@@ -48,6 +48,15 @@ public interface IDeskService {
     Desk deleteDeskByName(String name);
 
     /**
+     * 根据用户的ID删除用户
+     */
+    Desk deleteDeskById(Long id);
+
+    /**
+     * 更改用户的状态
+     */
+    int changeUserStatus(Long id);
+    /**
      * 添加桌子
      *
      * @param desk

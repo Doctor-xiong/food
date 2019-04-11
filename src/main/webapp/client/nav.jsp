@@ -61,17 +61,42 @@
 
 <body>
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header" style="position: fixed;top:0px;width: 100%;">
-        <div class="layui-col-xs18 layui-col-sm6 layui-col-md4" style="background-color: #eaeaea">
-            <ul class="layui-nav layui-bg-cyan" style="text-align: center;  font-size: 16px;font-weight: 800px;">
-                <li class="layui-nav-item" id="desknumber"><a href="javascript:;">${desk.d_name }</a></li>
-                <li class="layui-nav-item layui-this"><a
-                        href="${pageContext.request.contextPath }/queryRecommendMenu.do">自助点餐系统</a></li>
-                <li class="layui-nav-item" id="notice"><a href="javascript:;">活动</a></li>
-            </ul>
-        </div>
-    </div>
 
+    <div class="layui-header">
+        <div class="layui-logo">自助点餐系统</div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item" id="mydesk">
+                <a id="bage-before" href="${pageContext.request.contextPath }/mydesk.do">我的餐桌</a>
+                <span id="bage" class="layui-badge" style="margin-left: 70px;;">${bageNum }</span>
+                <script type="text/javascript">
+                    var num = $("#bage").text();
+                    if (num == 0) {
+                        $("#bage").remove();
+                    }
+                </script>
+            </li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    ${name}
+                </a>
+            </li>
+            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/userInfo.action?d_id=${d_id}">个人信息</a></li>
+            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/delUser.action?d_id=${d_id}">注销用户</a></li>
+            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/myLoginOut.action">退出</a></li>
+        </ul>
+    </div>
     <div class="layui-side layui-bg-black" style="width: 100px;">
         <div class="layui-row" style="width: 100px;">
             <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="background-color: #fbfbfb">
@@ -102,16 +127,7 @@
                             <a href="${pageContext.request.contextPath }/ismydesk.do">已付款菜品</a>
                         </li>
                     </c:if>
-                    <li class="layui-nav-item" id="mydesk">
-                        <a id="bage-before" href="${pageContext.request.contextPath }/mydesk.do">我的餐桌</a>
-                        <span id="bage" class="layui-badge" style="margin-left: 70px;;">${bageNum }</span>
-                        <script type="text/javascript">
-                            var num = $("#bage").text();
-                            if (num == 0) {
-                                $("#bage").remove();
-                            }
-                        </script>
-                    </li>
+
                 </ul>
             </div>
         </div>

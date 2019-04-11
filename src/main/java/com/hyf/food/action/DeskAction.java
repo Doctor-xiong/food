@@ -50,8 +50,8 @@ public class DeskAction {
 		List<Orderitems> osList1 = orderitemsService.queryOrderitemsByPosition(1, desk.getD_id());
 		if(d == null){
 			//登录失败
-			model.addAttribute("msg","抱歉，登录失败，请联系前台服务员。");
-			return "index.jsp";
+			model.addAttribute("msg","抱歉，登录失败，请检查ID和password！");
+			return "clientLogin.jsp";
 		}else{
 			if(d.getD_position() == 1){
 				//当餐桌显示有客时 但实际上没有客人 我们先查询是否有状态为0的总订单 且 总订单中要有子订单
@@ -93,7 +93,7 @@ public class DeskAction {
 					//或者有总订单为0 或1 但没有任何子订单信息 那么直接进入到空闲点餐模式
 					log.info("没有状态为0或1的订单 但餐桌是有人状态  那么直接进入到空闲点餐模式//或者有总订单为0 或1 但没有任何子订单信息 那么直接进入到空闲点餐模式");
 					session.setAttribute("desk", d);
-					return "redirect:queryRecommendMenu.do";
+					return "redirect:.queryRecommendMenudo";
 				}
 				
 				
@@ -107,8 +107,8 @@ public class DeskAction {
 			}
 			else{
 				//登录失败
-				model.addAttribute("msg","抱歉，暂无法使用，请联系前台服务员。");
-				return "index.jsp";
+				model.addAttribute("msg","抱歉，登录失败，请检查ID和password！");
+				return "clientLogin.jsp";
 			}
 		}
 		
@@ -267,7 +267,6 @@ public class DeskAction {
         return newFileNameRes;
 	}
 	
-		////////////////刘超 3.3新增///////////////////////////
 		/**
 		* 查询所有桌面
 		* @param model
@@ -305,7 +304,6 @@ public class DeskAction {
 		return "service/deskManager0.jsp";
 		
 		}
-		////////////////刘超 3.13新增///////////////////////////
 		/**
 		* 结账销台把桌台、总订单、子订单状态修改
 		*/

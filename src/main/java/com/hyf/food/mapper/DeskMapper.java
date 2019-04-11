@@ -32,14 +32,18 @@ public interface DeskMapper {
     @Select("select * from desk where d_id = #{d_id}")
     Desk queryDeskById(@Param("d_id") long d_id);
 
-    ////////////////刘超 3.3新增///////////////////////////
-
     /***
      * 查询所有桌子
      * @return
      */
     @Select("select * from desk")
     List<Desk> queryAllDesk();
+
+    /**
+     * 更改用户的装态
+     */
+    @Update("update desk set d_position = '0' where d_id = #{d_id}")
+    int changeUserStatus(@Param("d_id") Long id);
 
     /*
      * 根据桌名删除桌子
@@ -48,14 +52,19 @@ public interface DeskMapper {
     Desk deleteDeskByName(@Param("d_name") String name);
 
     /**
+     * 根据用户的id删除用户
+     */
+    @Delete("delete from desk where d_id = #{d_id}")
+    Desk deleteDeskById(@Param("d_id") Long id);
+
+    /**
      * 添加桌子
      *
      * @param desk
      * @return
      */
-    @Insert("insert into desk(d_password,d_name,d_place,d_type) value(#{d_password},#{d_name},#{d_place},#{d_type})")
+    @Insert("insert into desk(d_id,d_password,d_name,d_place,d_type) value(#{d_id},#{d_password},#{d_name},#{d_place},#{d_type})")
     int addDesk(Desk desk);
-    ////////////////刘超 3.15新增///////////////////////////
 
     /**
      * 根据桌名修改桌子状态

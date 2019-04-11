@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import sun.security.krb5.internal.crypto.Des;
 
 @Slf4j
 @Controller
@@ -42,6 +43,10 @@ public class UserOption {
             log.error("用户输入的信息不对");
             return "client/UserOption.jsp";
         }
+        desk.setD_type("0");
+        desk.setD_position(0L);
+        desk.setD_type("0");
+        desk.setD_place("0");
         deskService.addDesk(desk);
         return "clientLogin.jsp";
     }
@@ -60,5 +65,23 @@ public class UserOption {
         }
         deskService.deleteDeskByName(name);
         return "clientLogin.jsp";
+    }
+
+    /**
+     * 查询用户信息
+     */
+    @RequestMapping("userInfo.action")
+    public String getUserInfo(@RequestParam("d_id") Long id,Model model){
+        if(ObjectUtils.isEmpty(id) || id < 0){
+            model.addAttribute("error","获取用户信息失败");
+            return "my404.jsp";
+        }
+        Desk desk = deskService.queryDeskById(id);
+        if (ObjectUtils.isEmpty(desk)){
+            model.addAttribute("error","查询用户信息失败");
+            return "my404.jsp";
+        }
+        model.addAttribute("desk",desk);
+        return "/client/showUser.jsp";
     }
 }
