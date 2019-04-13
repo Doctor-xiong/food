@@ -208,7 +208,7 @@ public class OrderAction {
 			List<Orderitem> oiList = orderitemServiceImpl.queryItemByOsid(os_id1);
 			int j = 0;
 			for (Orderitem oi : oiList) {
-				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(3,oi.getOi_id());
+				int i = orderitemServiceImpl.updateOrderitemPositionByOiid(3,oi.getOs_id());
 				if(i == 0){
 					log.info("清空餐桌-----删除子菜单时失败！"+oi.getOi_id());
 					break;

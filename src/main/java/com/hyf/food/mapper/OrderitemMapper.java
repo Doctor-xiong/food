@@ -68,11 +68,10 @@ public interface OrderitemMapper {
 	
 	/***
 	 * 修改子订单状态
-	 * @param oi_id
 	 * @return
 	 */
-	@Update("update orderitem set oi_position = #{oi_position} where oi_id = #{oi_id}")
-	int updateOrderitemPositionByOiid(@Param("oi_position")long oi_position,@Param("oi_id")long oi_id);
+	@Update("update orderitem set oi_position = #{oi_position} where os_id = #{os_id}")
+	int updateOrderitemPositionByOiid(@Param("oi_position")long oi_position,@Param("os_id")long os_id);
 	
 	/***
 	 * 修改子订单的总订单id

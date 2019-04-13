@@ -96,7 +96,7 @@
 
         .error {
             color: red;
-            font-size: 10px;
+            font-size: 15px;
         }
     </style>
 
@@ -108,7 +108,7 @@
             var spanObj = document.getElementById("nameError");
             //判断用户名是否为空
             if (value == "") {
-                spanObj.innerHTML = "用户名不能为空！";
+                spanObj.innerHTML = "name is null !";
                 spanObj.className = "error";
                 return;
             }
@@ -128,7 +128,26 @@
             var spanObj = document.getElementById("pswError");
             //判断用户名是否为空
             if (value == "") {
-                spanObj.innerHTML = "密码不能为空！";
+                spanObj.innerHTML = "password is null！";
+                spanObj.className = "error";
+                return;
+            }
+            //判断用户名的长度
+            if (value.length < 6 || value.length > 20) {
+                spanObj.className = "error";
+                return;
+            }
+            //合法内容
+            spanObj.innerHTML = "";
+        }
+        function numalidate(obj) {
+            //获取input对象
+            var value = obj.value;
+            //根据id获取span标签的对象
+            var spanObj = document.getElementById("numError");
+            //判断用户名是否为空
+            if (value == "") {
+                spanObj.innerHTML = "number is null ！";
                 spanObj.className = "error";
                 return;
             }
@@ -158,11 +177,20 @@
                     <div class="layui-form-item">
                         <i class="layui-icon layui-icon-username" style="font-size: 30px; color: #1E9FFF;"></i>
                         <div class="layui-input-block">
-                            <input type="text" name="d_id" required lay-verify="required" placeholder="请输入员工编号"
+                            <input type="text" name="d_name" required lay-verify="required" placeholder="请输入name"
                                    autocomplete="off" class="layui-input" onblur="validate(this);"
                                    autofocus="autofocus">
                         </div>
                         <span id="nameError"></span>
+                    </div>
+                    <div class="layui-form-item">
+                        <i class="layui-icon layui-icon-username" style="font-size: 30px; color: #1E9FFF;"></i>
+                        <div class="layui-input-block">
+                            <input type="text" name="d_id" required lay-verify="required" placeholder="请输入number"
+                                   autocomplete="off" class="layui-input" onblur="numalidate(this);"
+                                   autofocus="autofocus">
+                        </div>
+                        <span id="numError"></span>
                     </div>
                     <div>
                         <i class="layui-icon layui-icon-password" style="font-size: 30px; color: #1E9FFF;"></i>

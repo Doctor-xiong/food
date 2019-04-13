@@ -144,6 +144,6 @@ public interface OrderitemsMapper {
 	/**
 	 * 更新用户是否支付的状态
 	 */
-	@Update("update from orderitems set os_position = 0 where d_id=#{d_id}")
+	@Update("update orderitems set os_position = 0 where d_id = #{d_id}")
 	Orderitems updateOrderitemsStatus(@Param("d_id") Long id);
 }

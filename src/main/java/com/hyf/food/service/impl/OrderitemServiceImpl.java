@@ -110,8 +110,8 @@ public class OrderitemServiceImpl implements IOrderitemService {
      * @return
      */
     @Override
-    public int updateOrderitemPositionByOiid(long oi_position, long oi_id) {
-        return orderitemMapper.updateOrderitemPositionByOiid(oi_position, oi_id);
+    public int updateOrderitemPositionByOiid(long oi_position, long os_id) {
+        return orderitemMapper.updateOrderitemPositionByOiid(oi_position, os_id);
     }
 
     /***

@@ -48,10 +48,9 @@ public interface IOrderitemService {
 	
 	/***
 	 * 修改子订单的状态
-	 * @param oi_id
 	 * @return
 	 */
-	int updateOrderitemPositionByOiid(long oi_position,long oi_id);
+	int updateOrderitemPositionByOiid(long oi_position,long os_id);
 	
 	/***
 	 * 修改子订单的总订单id

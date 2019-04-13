@@ -46,6 +46,7 @@ public class DeskAction {
         session.removeAttribute("again");
         log.info("desk={}", desk);
         model.addAttribute("name",desk.getD_name());
+        log.info("添加name到addAttribute。name={}",desk.getD_name());
         model.addAttribute("d_id", desk.getD_id());
         Desk d = deskServiceImpl.queryDeskByIdAndPassword(desk);
         //查询是否存在未付款的订单
@@ -97,7 +98,7 @@ public class DeskAction {
                     //或者有总订单为0 或1 但没有任何子订单信息 那么直接进入到空闲点餐模式
                     log.info("没有状态为0或1的订单 但餐桌是有人状态  那么直接进入到空闲点餐模式//或者有总订单为0 或1 但没有任何子订单信息 那么直接进入到空闲点餐模式");
                     session.setAttribute("desk", d);
-                    return "redirect:.queryRecommendMenudo";
+                    return "redirect:queryRecommendMenu.do";
                 }
 
 
