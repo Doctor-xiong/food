@@ -45,12 +45,12 @@ public interface IDeskService {
      * @param name
      * @return
      */
-    Desk deleteDeskByName(String name);
+    int deleteDeskByName(String name);
 
     /**
      * 根据用户的ID删除用户
      */
-    Desk deleteDeskById(Long id);
+    int deleteDeskById(Long id);
 
     /**
      * 更改用户的状态

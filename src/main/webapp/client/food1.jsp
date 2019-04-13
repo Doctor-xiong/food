@@ -43,7 +43,7 @@
     <jsp:param value="food1" name="nav"/>
 </jsp:include>
 <br/><br/><br/>
-<div id="w">
+<div id="w" style="color: #0C0C0C">
     <c:forEach items="${menu }" var="menu" varStatus="index">
         <div id="menu">
             <!-- 图片 -->

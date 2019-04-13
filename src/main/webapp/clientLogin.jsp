@@ -176,6 +176,7 @@
 
                     <div style="color: red;">${error }</div>
                     <div style="color: red;">${msg }</div>
+                    <br/><br/><br/>
                     <a class="layui-form layui-btn layui-btn-lg layui-btn-primary layui-btn-radius" style="text-align: center" href="/user.action" target="_blank">用户注册</a>
                     <button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">提交</button>
                 </div>

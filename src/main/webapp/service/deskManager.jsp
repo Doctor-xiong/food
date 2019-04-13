@@ -20,7 +20,7 @@
 
 </head>
 
-<body style="background-image: url(/food/img/papper1.jpg);background-size:cover">
+<body style="background-image: url(webapp/img/papper1.jpg);background-size:cover">
 <div style="width:379.8px;height:430px;">
 
     <!-- 已开台桌台详单 -->

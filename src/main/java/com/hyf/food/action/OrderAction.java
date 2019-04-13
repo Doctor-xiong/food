@@ -44,7 +44,6 @@ public class OrderAction {
 		Menu menu = menuServiceImpl.queryMenuById(m_id1);
 		//查询该餐桌是否有状态为0的总订单
 		List<Orderitems> osList = orderitemsServiceImpl.queryOrderitemsByPosition(0, desk.getD_id());
-		//log.info("bbbbbbbb"+osList.get(0).getos_regtime());
 		//如果没有则 创建一个该餐桌的总订单
 		if(osList.size() == 0){
 			Orderitems os = new Orderitems();
@@ -53,7 +52,7 @@ public class OrderAction {
 			if(i == 1){
 				log.info("成功创建一个该餐桌的总订单----获取到返回的os_id"+os.getOs_id());
 				//根据菜品信息创建一个子订单
-				Orderitem oi = new Orderitem(os.getOs_id(),menu.getM_id(),(long)1,menu.getM_price());
+				Orderitem oi = new Orderitem(os.getOs_id(),menu.getM_id(),(long)0,menu.getM_price());
 				int j = orderitemServiceImpl.addOrderitem(oi);
 				if(j == 1){
 					log.info("成功：根据菜品信息创建一个子订单");
@@ -75,7 +74,7 @@ public class OrderAction {
 			Orderitem oi1 = orderitemServiceImpl.queryOrderitemByMidAndOsid(menu.getM_id(), os1.getOs_id());
 			//如果为null  则根据菜品信息创建一个子订单
 			if(oi1 == null){
-				Orderitem oi2 = new Orderitem(os1.getOs_id(),menu.getM_id(),(long)1,menu.getM_price());
+				Orderitem oi2 = new Orderitem(os1.getOs_id(),menu.getM_id(),(long)0,menu.getM_price());
 				int k = orderitemServiceImpl.addOrderitem(oi2);
 				if(k ==1 ){
 					log.info("成功：如果为null  则根据菜品信息创建一个子订单");

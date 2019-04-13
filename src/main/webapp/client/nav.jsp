@@ -36,19 +36,18 @@
             color: rgba(255, 255, 255, .7);
         }
 
-
         #${param.nav }{
-			background-color: #fffdfe;
+			background-color: #0C0C0C;
 		}
         .layui-layer-btn .layui-layer-btn1 {
-            border-color: #1E9FFF;
-            background-color: #fffdfe;
-            color: #fff;
+            border-color: #00F7DE;
+            /*background-color: #fffdfe;*/
+            /*color: #fff;*/
         }
 
         .layui-layer-btn .layui-layer-btn0 {
             border-color: #dedede;;
-            background-color: #fff;
+            /*background-color: #fff;*/
             color: #333;
         }
 
@@ -62,7 +61,7 @@
 <body>
 <div class="layui-layout layui-layout-admin">
 
-    <div class="layui-header">
+    <div class="layui-header" style="background-color: #0C0C0C">
         <div class="layui-logo">自助点餐系统</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -92,76 +91,75 @@
                     ${name}
                 </a>
             </li>
-            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/userInfo.action?d_id=${d_id}">个人信息</a></li>
-            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/delUser.action?d_id=${d_id}">注销用户</a></li>
-            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/myLoginOut.action">退出</a></li>
+            <li class="layui-nav-item"><a
+                    href="${pageContext.request.contextPath }/userInfo.action?d_id=${d_id}">个人信息</a></li>
+            <li class="layui-nav-item"><a
+                    href="${pageContext.request.contextPath }/delUser.action?d_id=${d_id}">注销用户</a></li>
+            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/myLoginOut.action?d_id=${d_id}">退出</a></li>
         </ul>
     </div>
-    <div class="layui-side layui-bg-black" style="width: 100px;">
-        <div class="layui-row" style="width: 100px;">
-            <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="background-color: #fbfbfb">
+    <div class="layui-side layui-bg-black" style="width: 100px; background-color: #0C0C0C">
+        <div class="layui-row" style="width: 100px; background-color: #0C0C0C">
+            <ul class="layui-nav layui-nav-tree layui-inline layui-bg-cyan " lay-filter="demo"
+                style="margin-right: 10px; background-color: #0C0C0C">
 
-                <ul class="layui-nav layui-nav-tree layui-inline layui-bg-cyan " lay-filter="demo"
-                    style="margin-right: 10px;">
+                <li class="layui-nav-item " style="background-color: #0C0C0C" id="orderFood">
+                    <a href="${pageContext.request.contextPath }/queryRecommendMenu.do">人气推荐</a>
+                </li>
+                <li class="layui-nav-item " style="background-color: #0C0C0C" id="food1">
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=精致小炒">精致小炒</a>
+                </li>
+                <li class="layui-nav-item " style="background-color: #0C0C0C" id="food2">
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=美味大餐">美味大餐</a>
+                </li>
+                <li class="layui-nav-item " style="background-color: #0C0C0C" id="food3">
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=招牌干锅">招牌干锅</a>
+                </li>
+                <li class="layui-nav-item" style="background-color: #0C0C0C" id="food4">
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=营养靓汤">营养靓汤</a>
+                </li>
+                <li class="layui-nav-item" style="background-color: #0C0C0C" id="drink">
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=酒水饮料">酒水饮料</a>
+                </li>
+                <c:if test="${again eq 'again'}">
+                    <li class="layui-nav-item" id="again">
+                        <a href="${pageContext.request.contextPath }/ismydesk.do">已付款菜品</a>
+                    </li>
+                </c:if>
 
-                    <li class="layui-nav-item " id="orderFood">
-                        <a href="${pageContext.request.contextPath }/queryRecommendMenu.do">人气推荐</a>
-                    </li>
-                    <li class="layui-nav-item " id="food1">
-                        <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=精致小炒">精致小炒</a>
-                    </li>
-                    <li class="layui-nav-item " id="food2">
-                        <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=美味大餐">美味大餐</a>
-                    </li>
-                    <li class="layui-nav-item " id="food3">
-                        <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=招牌干锅">招牌干锅</a>
-                    </li>
-                    <li class="layui-nav-item" id="food4">
-                        <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=营养靓汤">营养靓汤</a>
-                    </li>
-                    <li class="layui-nav-item" id="drink">
-                        <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=酒水饮料">酒水饮料</a>
-                    </li>
-                    <c:if test="${again eq 'again'}">
-                        <li class="layui-nav-item" id="again">
-                            <a href="${pageContext.request.contextPath }/ismydesk.do">已付款菜品</a>
-                        </li>
-                    </c:if>
-
-                </ul>
-            </div>
+            </ul>
         </div>
     </div>
-    <c:if test="${param.nav eq 'mydesk'}">
-        <div class="layui-footer" style="width:100%;margin-left: -100px;height: 80px;">
-            <!-- 底部固定区域 -->
-            <div style="height: 25px;line-height: 25px;margin-left: 130px;font-size: 16px;font-weight: 800">
-                合计：<span id="mydesk-price"><c:if test="${os.os_allprice == null }">0</c:if>${os.os_allprice }</span>元
-            </div>
-            <div style="margin-left: 20px;height: 50px;" class="site-demo-button" id="layerDemo">
-                <button id="empty" class="layui-btn layui-btn-primary" data-method="confirmTrans"><a
-                        href="${pageContext.request.contextPath }/isEmpty.do?os_id=${os.os_id}">清空菜单</a></button>
-                <button id="pay" data-method="notice" class="layui-btn"> 立即结算</button>
-            </div>
+</div>
+<c:if test="${param.nav eq 'mydesk'}">
+    <div class="layui-footer" style="width:100%;margin-left: -100px;height: 80px; text-align: center">
+        <!-- 底部固定区域 -->
+        <div style="height: 25px;line-height: 25px;margin-left: 130px;font-size: 16px;font-weight: 800 ; text-align: center">
+            合计：<span id="mydesk-price"><c:if test="${os.os_allprice == null }">0</c:if>${os.os_allprice }</span>元
         </div>
-    </c:if>
-    <c:if test="${param.nav eq 'again'}">
-        <div class="layui-footer" style="width:100%;margin-left: -100px;height: 30px;">
-            <!-- 底部固定区域 -->
-            <div style="height: 25px;line-height: 25px;margin-left: 130px;font-size: 16px;font-weight: 800">
+        <div style="margin-left: 20px;height: 50px; text-align: center" class="site-demo-button" id="layerDemo">
+            <button id="empty" class="layui-btn layui-btn-primary" data-method="confirmTrans"><a
+                    href="${pageContext.request.contextPath }/isEmpty.do?os_id=${os.os_id}">清空菜单</a></button>
+            <button id="pay" data-method="notice" class="layui-btn"> 立即结算</button>
+        </div>
+    </div>
+</c:if>
+<c:if test="${param.nav eq 'again'}">
+    <div class="layui-footer" style="width:100%;margin-left: -100px;height: 30px;">
+        <!-- 底部固定区域 -->
+        <div style="height: 25px;line-height: 25px;margin-left: 130px;font-size: 16px;font-weight: 800">
 	    	<span>合计：
 		    	<c:if test="${os1.os_allprice == null }">
                     0
                 </c:if>
 	    		${os1.os_allprice }元
 	    	</span>
-            </div>
         </div>
-    </c:if>
-    <!--  <div class="layui-footer" style="width:100%;margin-left: -100px;">
-	    底部固定区域
-	    	欢迎光临智能时尚餐厅
-	  </div> -->
+    </div>
+</c:if>
+<%--<div class="layui-footer" style="width:100%;margin-left: -100px; background-color: #0C0C0C">--%>
+    <%--欢迎光临智能时尚餐厅--%>
+<%--</div>--%>
 </div>
 <script>
     layui.use('layer', function () { //独立版的layer无需执行这一句
@@ -202,6 +200,7 @@
                     }
                 });
             },
+
             //触发事件
             confirmTrans: function () {
                 //配置一个透明的询问框
@@ -223,7 +222,8 @@
                 return false;
             }
         });
-    });
+    })
+    ;
 
     $("#empty").click(function () {
         var allprice = $("#mydesk-price").text();
@@ -270,7 +270,7 @@
             maxmin: true,
             title: '餐厅活动',
             area: ['180px', '150px'],
-            content: '<p>下单满200元，送饮料一瓶</p><p>活动时间：3/3--3/12日</p>'
+            content: '<p>每天20:00以后点餐酒水全免</p><p>活动时间：5/1--6/1日</p>'
         });
     });
     $("#desknumber").click(function () {

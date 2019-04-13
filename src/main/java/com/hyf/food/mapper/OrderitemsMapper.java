@@ -66,7 +66,7 @@ public interface OrderitemsMapper {
 	 * @param os_id
 	 * @return
 	 */
-	@Update("update orderitems set os_allprice = (os_allprice+#{os_allprice}) where os_id = #{os_id}")
+	@Update("update orderitems set os_allprice = os_allprice +#{os_allprice} where os_id = #{os_id}")
 	int updateOrderitemsPriceByOsid(@Param("os_allprice")float os_allprice,@Param("os_id")long os_id);
 	
 	/***
@@ -77,8 +77,7 @@ public interface OrderitemsMapper {
 	@Delete("delete from orderitems where os_id = #{os_id}")
 	int deleteOrderitemsByOsid(@Param("os_id")long os_id);
 	
-	/*************张洋的方法********************/
-	
+
 	/***
 	 * 按照分页获取内容
 	 * @param before
@@ -134,12 +133,17 @@ public interface OrderitemsMapper {
 	@Select("select * from orderitems where d_id = #{d_id}")
 	List<Orderitems> queryOrderitemsByDid(@Param("d_id") long d_id);
 
-	/*********************刘超**********************/
-	
+
 	/***
 	 * 根据桌面ID删除订单状态为0的信息
 	 * @return
 	 */
 	@Delete("delete from orderitems where d_id = #{d_id} and os_position = 0")
 	int deleteOrderitemsByDidAndPosition(@Param("d_id") long d_id);
+
+	/**
+	 * 更新用户是否支付的状态
+	 */
+	@Update("update from orderitems set os_position = 0 where d_id=#{d_id}")
+	Orderitems updateOrderitemsStatus(@Param("d_id") Long id);
 }

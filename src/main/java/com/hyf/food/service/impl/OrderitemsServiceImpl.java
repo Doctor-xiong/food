@@ -169,4 +169,9 @@ public class OrderitemsServiceImpl implements IOrderitemsService {
     public int deleteOrderitemsByDidAndPosition(long d_id) {
         return orderitemsMapper.deleteOrderitemsByDidAndPosition(d_id);
     }
+
+    @Override
+    public Orderitems updateOrderitemsStatus(Long id) {
+        return orderitemsMapper.updateOrderitemsStatus(id);
+    }
 }

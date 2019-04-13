@@ -121,4 +121,9 @@ public interface IOrderitemsService {
      * @return
      */
     int deleteOrderitemsByDidAndPosition(long d_id);
+
+    /**
+     * 更新用户是否支付的状态
+     */
+    public Orderitems updateOrderitemsStatus(Long id);
 }

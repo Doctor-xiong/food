@@ -49,13 +49,13 @@ public interface DeskMapper {
      * 根据桌名删除桌子
      */
     @Delete("delete from desk where d_name = #{d_name}")
-    Desk deleteDeskByName(@Param("d_name") String name);
+    int deleteDeskByName(@Param("d_name") String name);
 
     /**
      * 根据用户的id删除用户
      */
     @Delete("delete from desk where d_id = #{d_id}")
-    Desk deleteDeskById(@Param("d_id") Long id);
+    int deleteDeskById(@Param("d_id") Long id);
 
     /**
      * 添加桌子

@@ -73,12 +73,12 @@ public class DeskServiceImpl implements IDeskService {
      * @return
      */
     @Override
-    public Desk deleteDeskByName(String name) {
+    public int deleteDeskByName(String name) {
         return deskMapper.deleteDeskByName(name);
     }
 
     @Override
-    public Desk deleteDeskById(Long id) {
+    public int deleteDeskById(Long id) {
         return deskMapper.deleteDeskById(id);
     }
 

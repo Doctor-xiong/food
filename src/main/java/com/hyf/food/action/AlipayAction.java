@@ -59,7 +59,7 @@ public class AlipayAction {
 		
 		//获取总订单信息，以便于获取总价
 		long os_id1 = Long.parseLong(os_id);
-		Orderitems os = orderitemsServiceImpl.queryOrderitsmByOsid(os_id1);
+		Orderitems os = orderitemsServiceImpl.updateOrderitemsStatus(os_id1);
 		
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
 	    String out_trade_no = os.getOs_id().toString();

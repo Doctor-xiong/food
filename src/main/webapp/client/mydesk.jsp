@@ -32,7 +32,7 @@
         #W {
             width: 72.5%;
             height: 78%;
-            margin-left: 27.5%;
+            margin-left: 100%;
             margin-top: 12px;
             overflow-y: auto;
             color: rgba(255, 255, 255, .7);

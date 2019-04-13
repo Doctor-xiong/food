@@ -57,13 +57,13 @@ public class UserOption {
      * @return
      */
     @RequestMapping(value = "delUser.action",method = RequestMethod.GET)
-    public String delUser(Model model,@RequestParam("id") String name){
-        log.info("into delete user: name={}",name);
-        if(StringUtils.isEmpty(name)){
-            model.addAttribute("error","输入的用户name不对,");
-            return "client/UserOption.jsp";
+    public String delUser(Model model,@RequestParam("d_id") Long id){
+        log.info("into delete user: name={}",id);
+        if(StringUtils.isEmpty(id) || id < 0){
+            model.addAttribute("error","输入的用户name不对,"+id);
+            return "my404.jsp";
         }
-        deskService.deleteDeskByName(name);
+        deskService.deleteDeskById(id);
         return "clientLogin.jsp";
     }
 
