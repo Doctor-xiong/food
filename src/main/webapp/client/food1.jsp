@@ -52,7 +52,7 @@
                      style="margin-top: 10px;">
             </div>
             <!-- 文字 -->
-            <div id="menu-text">
+            <div id="menu-text" style="color: #0C0C0C">
                 <ul>
                     <li id="name">${menu.m_name }</li>
                     <li id="num">销量：${menu.m_num }</li>
@@ -65,7 +65,7 @@
                     <li id="add_${index.count }" data-method="confirmTrans"><i class="layui-icon layui-icon-up  "
                                                                                style="font-size: 20px; color: #ed9715;"></i>
                     </li>
-                    <li id="li_${index.count }">
+                    <li id="li_${index.count }" style="color: #0000FF">
                         <span id="number_${index.count }">${menu.m_number }</span>
                     </li>
                     <li id="dec_${index.count }" data-method="confirmTrans"><i class="layui-icon layui-icon-down"

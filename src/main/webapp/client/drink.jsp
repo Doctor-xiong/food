@@ -59,7 +59,7 @@
                 </ul>
             </div>
             <!-- 选择数量 -->
-            <div id="menu-num">
+            <div id="menu-num" style="color: #0C0C0C">
                 <ul>
                     <li id="add_${index.count }" data-method="confirmTrans"><i class="layui-icon layui-icon-up  "
                                                                                style="font-size: 20px; color: #ed9715;"></i>
