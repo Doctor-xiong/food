@@ -1,6 +1,7 @@
 package com.xjt.food.action;
 
 import com.xjt.food.entity.Desk;
+import com.xjt.food.entity.Layui;
 import com.xjt.food.entity.Orderitem;
 import com.xjt.food.entity.Orderitems;
 import com.xjt.food.service.IDeskService;
@@ -284,6 +285,21 @@ public class DeskAction {
         return "service/index.jsp";
     }
 
+
+    /**
+     * 查询所有桌台信息
+     */
+
+    @RequestMapping("queryAllDesk.action")
+    public @ResponseBody Layui queryAllDesk(Model model){
+        log.info("into queryAllDesk");
+        List<Desk> list = deskServiceImpl.queryAllDesk();
+        Layui layui = new Layui();
+        layui.setCount(list.size());
+        layui.setData(list);
+        return layui;
+    }
+
     /**
      * 根据id查询桌面
      *
@@ -350,8 +366,6 @@ public class DeskAction {
         //添加桌子
         deskServiceImpl.addDesk(desk);
     }
-    ////////////////刘超 3.15新增///////////////////////////
-
     /**
      * 根据桌名修改桌子状态
      */

@@ -3,261 +3,144 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-
-    <title>餐厅管理系统</title>
-
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-    <meta http-equiv="description" content="This is my page">
-    <!--
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    -->
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath }/layui/layui.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css">
-
 </head>
-
-<body style="background-color: #fffdfe">
+<body>
 <jsp:include page="nav.jsp"></jsp:include>
-<div class="demoTable" style="margin-left: 5px; margin-top: 80px;">
-    <div class="layui-inline">
-        <input class="layui-input" name="keyWord" id="keyWord" autocomplete="off">
-    </div>
-    <span class="input-group-btn">
-       <select name="keyType" id="key_type" class="layui-btn">
-          <option value="e_id" selected="selected">员工ID</option>
-          <option value="e_tel">联系电话</option>
-       </select>
-    </span>
-    <button class="layui-btn" data-type="reload">搜索</button>
-    <div style="margin-left: 5px;">
-        <table class="layui-hide" id="test" lay-filter="test"></table>
-    </div>
-    <script type="text/html" id="toolbarDemo">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-radius layui-btn-warm" lay-event="addUser">添加新员工</button>
+<div style="margin-left: 5px; margin-top: 80px;">
+    <form class="layui-form" action="${pageContext.request.contextPath }/" lay-filter="example">
+        <div class="layui-form-item">
+            <label class="layui-form-label">桌台号</label>
+            <div class="layui-input-block">
+                <input type="text" name="deskId" lay-verify="title" autocomplete="off" placeholder="请输入桌台ID"
+                       class="layui-input">
+            </div>
         </div>
-    </script>
+        <div class="layui-form-item">
+            <label class="layui-form-label">校验码</label>
+            <div class="layui-input-block">
+                <input type="text" name="mark" placeholder="请输入校验码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
-    <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <select name="interest" lay-filter="aihao">
+                    <option value=""></option>
+                    <option value="0">写作</option>
+                    <option value="1">阅读</option>
+                    <option value="2">游戏</option>
+                    <option value="3">音乐</option>
+                    <option value="4">旅行</option>
+                </select>
+            </div>
+        </div>
 
-    <script>
-        layui.use('table', function () {
-            var table = layui.table;
+        <div class="layui-form-item">
+            <label class="layui-form-label">复选框</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="like[write]" title="写作">
+                <input type="checkbox" name="like[read]" title="阅读">
+                <input type="checkbox" name="like[daze]" title="发呆">
+            </div>
+        </div>
 
-            table.render({
-                elem: '#test'
-                , url: '${pageContext.request.contextPath }/queryAllEmployee.action'
-                , toolbar: '#toolbarDemo'
-                , height: 550
-                , width: 1350
-                , title: '员工信息表'
-                , id: 'testReload'
-                , page: true
-                , cols: [[
-                    {type: 'checkbox', fixed: 'left'}
-                    , {field: 'e_id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
-                    , {field: 'e_name', title: '姓名', width: 120, edit: 'text'}
-                    , {field: 'e_password', title: '密码', width: 100, edit: 'text'}
-                    , {field: 'e_tel', title: '电话', width: 150, edit: 'text'}
-                    , {field: 'e_address', title: '住址', width: 150, edit: 'text'}
-                    , {field: 'e_regdate', title: '入职时间', width: 150, sort: true}
-                    , {field: 'e_job', title: '职务', width: 50, edit: 'text'}
-                    , {field: 'e_position', title: '状态', width: 80, templet: '#e_position'}
-                    , {field: 'e_salary', title: '工资', width: 80, edit: 'text', sort: true}
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 130}
-                ]],
-                request: {
-                    pageName: 'curr',
-                    limitName: 'limit'
-                },
-                limit: 10,
-                limits: [10, 20, 30, 40, 50]
-            });
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否可使用</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
+            </div>
+        </div>
 
-            var $ = layui.$, active = {
-                reload: function () {
-                    var keyWord = $("#keyWord").val();
-                    var keyType = $("#key_type option:selected").val();
-                    //执行重载
-                    table.reload('testReload', {
-                        method: 'post'
-                        , url: '${pageContext.request.contextPath }/queryEmployeeMsgByIDorTel.action'
-                        , where: {
-                            // key: {
-                            keyWord: keyWord,
-                            keyType: keyType
-                            //}
-                        }
-                        , page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                    });
-                }
-            };
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
+            </div>
+        </div>
 
-            $('.demoTable .layui-btn').on('click', function () {
-                var type = $(this).data('type');
-                active[type] ? active[type].call(this) : '';
-            });
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
 
-
-            //头工具栏事件
-            table.on('toolbar(test)', function (obj) {
-                var checkStatus = table.checkStatus(obj.config.id);
-                switch (obj.event) {
-                    case 'ByPosition':
-                        layer.open({
-                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                            type: 2,
-                            maxmin: true,
-                            shadeClose: true,
-                            title: "按状态查找员工信息",
-                            area: ['450px', '200px'],
-                            content: '${pageContext.request.contextPath }/service/queryEmployeeMsgBy.jsp',
-
-                        });
-                        break;
-                    case 'ByTel':
-                        layer.open({
-                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                            type: 2,
-                            maxmin: true,
-                            shadeClose: true,
-                            title: "按电话号码查找员工信息",
-                            area: ['450px', '200px'],
-                            content: '${pageContext.request.contextPath }/service/queryEmployeeMsgByTel.jsp'
-                        });
-                        break;
-                    case 'ById':
-                        layer.open({
-                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                            type: 2,
-                            maxmin: true,
-                            shadeClose: true,
-                            title: "按编号查找员工信息",
-                            area: ['450px', '200px'],
-                            content: '${pageContext.request.contextPath }/service/queryEmployeeMsgById.jsp'
-                        });
-                        break;
-                    case 'addUser':
-                        layer.open({
-                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                            type: 2,
-                            maxmin: true,
-                            shadeClose: true,
-                            title: "添加新员工",
-                            area: ['500px', '520px'],
-                            content: '${pageContext.request.contextPath }/service/addEmployeeMsg.jsp',
-                            end: function () {
-                                //刷新页面,
-                                location.reload();
-                            },
-                        });
-                }
-                ;
-            });
-
-            //监听行工具事件
-            table.on('tool(test)', function (obj) {
-                var data = obj.data;
-                //console.log(obj)
-                if (obj.event === 'del') {
-                    layer.confirm('确定真的删除？', function (index) {
-                        $.ajax({
-                            url: "${pageContext.request.contextPath }/delEmployeeMsg.action",
-                            type: "POST",
-                            data: {"e_id": data.e_id},
-                            dataType: "json",
-                            success: function (data) {
-                                if (data == 0) {
-                                    layer.msg(data.e_id);
-                                    layer.msg("删除失败", {icon: 5});
-                                } else {
-                                    layer.msg(data.e_id);
-                                    //删除这一行
-                                    obj.del();
-                                    //关闭弹框
-                                    layer.close(index);
-                                    layer.msg("删除成功", {icon: 6});
-                                    layer.closeAll();
-                                    parent.location.reload();
-                                    Load(); //删除完需要加载数据
-                                }
-                            },
-                            //error:function(){
-                            //   alert(data);
-                            // },
-
-                        });
-                    });
-                } else if (obj.event === 'edit') {
-                    layer.open({
-                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                        type: 2,
-                        maxmin: true,
-                        shadeClose: true,
-                        title: "修改员工信息",
-                        area: ['450px', '550px'],
-                        content: '${pageContext.request.contextPath }/queryEmployeeById.action?e_id=' + data.e_id,
-                        end: function () {
-                            //刷新页面,
-                            location.reload();
-                        },
-                    });
-                    //动态向表传递赋值可以参看文章进行修改界面的更新前数据的显示，当然也是异步请求的要数据的修改数据的获取
-                    //setFormValue(obj,data);
-                }
-            });
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
         });
 
-    </script>
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 5) {
+                    return '标题至少得5个字符啊';
+                }
+            }
+            , pass: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(switchTest)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        //表单初始赋值
+        form.val('example', {
+            "username": "贤心" // "name": "value"
+            , "password": "123456"
+            , "interest": 1
+            , "like[write]": true //复选框选中状态
+            , "close": true //开关状态
+            , "sex": "女"
+            , "desc": "我爱 layui"
+        })
 
 
-    <script type="text/html" id="e_position">
+    });
+</script>
 
-        {{# if( d.e_position == '0'){ }}
-        在职{{# } }}
-        {{# if( d.e_position == '1'){ }}
-        离职 {{# } }}
-    </script>
-    <script type="text/javascript">
-        //对Date的扩展，将 Date 转化为指定格式的String
-        //月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
-        //年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
-        //例子：
-        //(new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
-        //(new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
-        Date.prototype.Format = function (fmt) { //author: meizz
-            var o = {
-                "M+": this.getMonth() + 1,                 //月份
-                "d+": this.getDate(),                    //日
-                "h+": this.getHours(),                   //小时
-                "m+": this.getMinutes(),                 //分
-                "s+": this.getSeconds(),                 //秒
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                "S": this.getMilliseconds()             //毫秒
-            };
-            if (/(y+)/.test(fmt))
-                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (var k in o)
-                if (new RegExp("(" + k + ")").test(fmt))
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
-        }
-    </script>
-    <script id="e_regdate" type="text/html">
-        {{#
-        var date = new Date();
-        date.setTime(d.e_regdate);
-        return date.Format("yyyy-MM-dd");
-        }}
-    </script>
 </body>
 </html>
