@@ -59,8 +59,8 @@
                     ${admin.a_name }${emp.e_name }
                 </a>
                 <dl class="layui-nav-child">
-                    <dd data-method="setTop" id="personal"><a href="javascript:;">基本资料</a></dd>
-                    <dd><a href="#">安全设置</a></dd>
+                    <dd data-method="setTop" id="personal"><a href="${pageContext.request.contextPath }/queryEmployeeById.action?e_id=${admin.a_id }${emp.e_id }">个人中心</a></dd>
+                    <dd><a href="#">基础设置</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/loginOut.action">退了</a></li>

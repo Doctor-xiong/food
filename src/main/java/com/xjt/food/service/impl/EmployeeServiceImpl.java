@@ -64,13 +64,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	/***
 	 * 员工登录
-	 * @param e_tel
 	 * @param e_password
 	 * @return
 	 */
 	@Override
-	public Employee EmployeeLogin(long e_tel, String e_password) {
-		return employeeMapper.EmployeeLogin(e_tel, e_password);
+	public Employee EmployeeLogin(long e_id, String e_password) {
+		return employeeMapper.EmployeeLogin(e_id, e_password);
 	}
 	/***
 	 * 按电话查询员工信息

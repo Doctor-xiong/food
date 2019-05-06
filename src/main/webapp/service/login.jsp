@@ -135,7 +135,7 @@
                 return;
             }
             //判断用户名的长度
-            if (value.length < 6 || value.length > 20) {
+            if (value.length < 2 || value.length > 10) {
                 spanObj.innerHTML = "密码长度不合法！";
                 spanObj.className = "error";
                 return;
@@ -162,7 +162,7 @@
                     <div class="layui-form-item">
                         <i class="layui-icon layui-icon-username" style="font-size: 30px; color: #1E9FFF;"></i>
                         <div class="layui-input-block">
-                            <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名或员工编号"
+                            <input type="text" name="username" required lay-verify="required" placeholder="请输入手机号"
                                    autocomplete="off" class="layui-input" onblur="validate(this);"
                                    autofocus="autofocus">
                         </div>

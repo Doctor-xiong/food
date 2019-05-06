@@ -42,11 +42,13 @@ public class loginAction {
 			admin = adminServiceImpl.Adminlogin(username, password);
 			session.setAttribute("admin", admin);
 			session.removeAttribute("emp");
+			model.addAttribute("admin",admin);
 		}else if(role.equals("employee")){
 			long etel = Long.parseLong(username);
 			emp = employeeServiceImpl.EmployeeLogin(etel,password);
 			session.setAttribute("emp", emp);
 			session.removeAttribute("admin");
+			model.addAttribute("emp",emp);
 		}
 		if(admin != null || emp != null){
 			log.info("登录中——————————————————————");

@@ -45,7 +45,7 @@ public interface IEmployeeService {
 	 * @param e_password
 	 * @return
 	 */
-	Employee EmployeeLogin(long e_tel,String e_password);
+	Employee EmployeeLogin(long e_id,String e_password);
 	
 	/***
 	 * 按电话查询员工信息

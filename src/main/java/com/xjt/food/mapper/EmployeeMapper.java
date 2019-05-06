@@ -2,6 +2,7 @@ package com.xjt.food.mapper;
 
 import com.xjt.food.entity.Employee;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 @Mapper
@@ -29,7 +30,7 @@ public interface EmployeeMapper {
 	 * @param employee
 	 * @return
 	 */
-	@Update("update employee set e_name = #{e_name},e_tel = #{e_tel},e_password = #{e_password},e_address = #{e_address},e_regdate = #{e_regdate},e_job = #{e_job},e_salary = #{e_salary} where e_id = #{e_id}")
+	@Update("update employee set e_name = #{e_name},e_tel = #{e_tel},e_password = #{e_password},e_address = #{e_address},e_job = #{e_job},e_salary = #{e_salary} where e_id = #{e_id}")
 	int updateEmployeeMsg(Employee employee);
 	
 	/***

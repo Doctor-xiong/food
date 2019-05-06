@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,6 +51,9 @@ public class EmployeeAction {
 	@RequestMapping("queryEmployeeById.action")
 	public String queryEmployeeById(Model model,HttpSession session,String e_id){
 		System.err.println("qeeee--------"+e_id);
+		if (StringUtils.isEmpty(e_id)){
+			e_id = "1";
+		}
 		long eid = Long.parseLong(e_id);
 		Employee emp = EmployeeServiceImpl.queryEmloyeeById(eid);
 		model.addAttribute("emp", emp);
@@ -59,6 +63,7 @@ public class EmployeeAction {
 	@RequestMapping("updateEmployeeMsg.action")
 	public @ResponseBody String updateEmployeeMsg(Model model,HttpSession session,Employee employee){
 		log.info("----------------"+employee.getE_id());
+		Employee employee1 = EmployeeServiceImpl.queryEmloyeeById(employee.getE_id());
 		int i = EmployeeServiceImpl.updateEmployeeMsg(employee);
 		if(i == 1){
 			return "success";

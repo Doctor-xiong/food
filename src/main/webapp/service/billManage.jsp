@@ -26,13 +26,13 @@
     <div class="layui-inline">
         <input class="layui-input" name="keyWord" id="keyWord" autocomplete="off">
     </div>
-    <span class="input-group-btn">
-       <select name="keyType" id="key_type" class="layui-btn">
-          <option value="os_id" selected="selected">订单编号</option>
-          <option value="d_id">桌面编号</option>
-       </select>
-    </span>
-    <button class="layui-btn" data-type="reload">搜索</button>
+    <%--<span class="input-group-btn">--%>
+       <%--<select name="keyType" id="key_type" class="layui-btn">--%>
+          <%--<option value="os_id" selected="selected">订单编号</option>--%>
+          <%--<option value="d_id">桌面编号</option>--%>
+       <%--</select>--%>
+    <%--</span>--%>
+    <%--<button class="layui-btn" data-type="reload">搜索</button>--%>
     <div class="layui-inline">
         <div class="layui-input-block">
             <input type="text" name="os_regtime" id="date1" autocomplete="off" class="layui-input"
