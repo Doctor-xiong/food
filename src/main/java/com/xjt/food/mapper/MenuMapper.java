@@ -80,6 +80,10 @@ public interface MenuMapper {
     @Update("update menu set m_position=3 where m_id=#{m_id}")
     int deleteMenu(@Param("m_id") long m_id);
 
+    @Delete("delete from menu where m_id=#{m_id}")
+    int deleteMenu1(@Param("m_id") long m_id);
+
+
     /**
      * 修改菜品状态为推荐
      *

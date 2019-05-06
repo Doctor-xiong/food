@@ -366,6 +366,22 @@ public class DeskAction {
         //添加桌子
         deskServiceImpl.addDesk(desk);
     }
+
+    /**
+     * 添加桌台信息
+     */
+    @RequestMapping("AddDesk.do")
+    public String addDesk1(HttpServletRequest request){
+        Desk desk = new Desk();
+        desk.setD_id(Long.valueOf(request.getParameter("id")));
+        desk.setD_password(request.getParameter("mask"));
+        desk.setD_place(request.getParameter("address"));
+        desk.setD_name("普通餐桌");
+        desk.setD_type("0");
+        deskServiceImpl.addDesk(desk);
+        return "service/deskCtlManager.jsp";
+    }
+
     /**
      * 根据桌名修改桌子状态
      */

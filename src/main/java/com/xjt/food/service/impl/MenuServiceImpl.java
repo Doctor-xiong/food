@@ -96,7 +96,7 @@ public class MenuServiceImpl implements IMenuService {
 	*/
 	@Override
 	public int deleteMenu(long m_id){
-		return menuMapper.deleteMenu(m_id);
+		return menuMapper.deleteMenu1(m_id);
 	}
 	/**
 	* 修改菜品状态为推荐

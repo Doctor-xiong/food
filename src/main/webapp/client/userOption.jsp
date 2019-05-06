@@ -30,7 +30,7 @@
 </head>
 
 <body>
-<div id="q" class="layui-col-xs18 layui-col-sm6 layui-col-md4">
+<div id="q" class="layui-col-xs18 layui-col-sm6 layui-col-md4" style="align-content: center">
     <form class="layui-form" action="${pageContext.request.contextPath }/userAdd.action">
         <label class="layui-form-label" style="width: 100%;text-align: center;">用户注册系统</label>
         <div class="layui-form-item">

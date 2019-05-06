@@ -315,8 +315,7 @@ public class OrderAction {
     public @ResponseBody
     OredritemsTableModel queryOrderitemsMsgByOsregtime(Model model, HttpSession session, Date regtime) {
         log.info("riqi ------------" + regtime);
-        List<Orderitems> list = new ArrayList<Orderitems>();
-        list = orderitemsServiceImpl.queryOrderitemsByRegtime(regtime);
+        List<Orderitems> list = orderitemsServiceImpl.queryOrderitemsByRegtime(regtime);
         OredritemsTableModel ot = new OredritemsTableModel();
         ot.setCode(0);
         ot.setCount(1000);

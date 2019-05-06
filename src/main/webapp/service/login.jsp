@@ -4,7 +4,7 @@
 <html>
 <head>
 
-    <title>My JSP 'login.jsp' starting page</title>
+    <title>后台登录</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -152,7 +152,6 @@
 <body>
 <div id="backgroud">
     <div id="title" style="margin-left: 650px;">
-        <!--<span>&nbsp;&nbsp;依云大酒店</span><br>-->
         <br/>
         <span>自助点餐后台管理系统</span>
     </div>
@@ -184,7 +183,7 @@
                             <input type="radio" name="role" value="employee" title="员工" checked>
                         </div>
                     </div>
-                    <div style="color: red;">${erroe }</div>
+                    <div style="color: red;">${error }</div>
                     <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" lay-submit
                             lay-filter="formDemo">登录
                     </button>

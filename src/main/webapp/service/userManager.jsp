@@ -259,5 +259,6 @@
         return date.Format("yyyy-MM-dd");
         }}
     </script>
+</div>
 </body>
 </html>
