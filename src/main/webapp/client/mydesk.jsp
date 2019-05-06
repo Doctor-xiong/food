@@ -26,16 +26,18 @@
             padding: 0px;
             width: 100%;
             height: 100%;
+            color: #0C0C0C;
+            align-content: center;
             background-attachment: fixed;
         }
 
         #W {
-            width: 72.5%;
+            width: 60%;
             height: 78%;
-            margin-left: 100%;
+            margin-left: 15%;
             margin-top: 12px;
             overflow-y: auto;
-            color: rgba(255, 255, 255, .7);
+            color: #0C0C0C;
         }
 
     </style>
@@ -45,7 +47,7 @@
     <jsp:param value="mydesk" name="nav"/>
 </jsp:include>
 <br/><br/><br/>
-<div id="w">
+<div id="w" align="center">
     <c:forEach items="${oiList }" var="oi" varStatus="index">
         <div id="menu-${index.count }">
             <!-- 图片 -->
@@ -54,7 +56,7 @@
                      style="margin-top: 10px;">
             </div>
             <!-- 文字 -->
-            <div id="menu-text">
+            <div id="menu-text" >
                 <ul>
                     <li id="name">${oi.menu.m_name }</li>
                     <li id="num">数量：<span id="num-value-${index.count }">${oi.oi_num }</span></li>
@@ -189,8 +191,7 @@
     <!-- 如果菜单为空 -->
     <c:if test="${oiList == null }">
         <div>
-            <img alt="空空如也" src="${pageContext.request.contextPath }/img/011.png" width="300px" height="250px;"
-                 style="margin-left: 0px;margin-top: 200px;">
+            <p alt="空空如也">
         </div>
     </c:if>
     <br/><br/><br/><!-- 防止被遮住 -->

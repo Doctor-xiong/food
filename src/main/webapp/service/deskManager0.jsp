@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>My JSP 'deskManager0.jsp' starting page</title>
+    <title>餐厅管理系统</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css">
 </head>
 
-<body style="background-image: url(/food/img/papper1.jpg);background-size:cover">
+<body style="background-image: url(/webapp/img/papper1.jpg);background-size:cover">
 <div style="width:379.8px;height:425px;">
     <!-- 未开台桌台详单 -->
     <div style="margin:15px 25px">
@@ -37,7 +37,7 @@
             <div style="margin-bottom:60px;">
                 <div id="delete" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-danger">删除</div>
                 <div id="add" class="layui-btn layui-btn-lg layui-btn-radius "
-                     style="float:right;background-image: url(/food/img/black.jpg);background-size:cover">新增
+                     style="float:right;background-image: url(/webapp/img/black.jpg);background-size:cover">新增
                 </div>
 
             </div>

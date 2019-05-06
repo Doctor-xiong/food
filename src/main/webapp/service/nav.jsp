@@ -49,6 +49,8 @@
             </li>
             <li class="layui-nav-item" id="empManager"><a
                     href="${pageContext.request.contextPath }/service/userManager.jsp">员工管理</a></li>
+            <li class="layui-nav-item" id="deskManager"><a
+                    href="${pageContext.request.contextPath }/service/deskCtlManager.jsp">桌台管理</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">

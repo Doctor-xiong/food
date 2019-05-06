@@ -91,11 +91,12 @@
                     ${name}
                 </a>
             </li>
-            <li class="layui-nav-item"><a
-                    href="${pageContext.request.contextPath }/userInfo.action?d_id=${d_id}">个人信息</a></li>
+            <%--<li class="layui-nav-item"><a--%>
+                    <%--href="${pageContext.request.contextPath }/userInfo.action?d_id=${d_id}">个人信息</a></li>--%>
             <li class="layui-nav-item"><a
                     href="${pageContext.request.contextPath }/delUser.action?d_id=${d_id}">注销用户</a></li>
-            <li class="layui-nav-item"><a href="${pageContext.request.contextPath }/myLoginOut.action?d_id=${d_id}">退出</a></li>
+            <li class="layui-nav-item"><a
+                    href="${pageContext.request.contextPath }/myLoginOut.action?d_id=${d_id}">退出</a></li>
         </ul>
     </div>
     <div class="layui-side layui-bg-black" style="width: 100px; background-color: #0C0C0C">
@@ -107,19 +108,19 @@
                     <a href="${pageContext.request.contextPath }/queryRecommendMenu.do">人气推荐</a>
                 </li>
                 <li class="layui-nav-item " style="background-color: #0C0C0C" id="food1">
-                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=精致小炒">精致小炒</a>
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=精致小炒">小炒</a>
                 </li>
                 <li class="layui-nav-item " style="background-color: #0C0C0C" id="food2">
-                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=美味大餐">美味大餐</a>
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=美味大餐">主食</a>
                 </li>
                 <li class="layui-nav-item " style="background-color: #0C0C0C" id="food3">
-                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=招牌干锅">招牌干锅</a>
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=招牌干锅">甜点</a>
                 </li>
                 <li class="layui-nav-item" style="background-color: #0C0C0C" id="food4">
-                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=营养靓汤">营养靓汤</a>
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=营养靓汤">汤类</a>
                 </li>
                 <li class="layui-nav-item" style="background-color: #0C0C0C" id="drink">
-                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=酒水饮料">酒水饮料</a>
+                    <a href="${pageContext.request.contextPath }/queryAllMenuByType.do?m_type=酒水饮料">酒水</a>
                 </li>
                 <c:if test="${again eq 'again'}">
                     <li class="layui-nav-item" id="again">
@@ -158,7 +159,7 @@
     </div>
 </c:if>
 <%--<div class="layui-footer" style="width:100%;margin-left: -100px; background-color: #0C0C0C">--%>
-    <%--欢迎光临智能时尚餐厅--%>
+<%--欢迎光临智能时尚餐厅--%>
 <%--</div>--%>
 </div>
 <script>
@@ -239,49 +240,51 @@
     //触发事件
     var active = {
         confirmTrans: function () {
-            //配置一个透明的询问框
+//配置一个透明的询问框
             layer.msg(food1, {
                 time: 1000, //1s后自动关闭
             });
         }
     };
 </script>
-<script type="text/javascript">
+<script
+type = "text/javascript" >
 
 </script>
-<script>
-    layui.use('element', function () {
-        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 
-        //监听导航点击
-        element.on('nav(demo)', function (elem) {
-            //console.log(elem)
-            layer.msg(elem.text());
-        });
-    });
+<script >
+layui.use('element', function () {
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 
-    layui.use('table', function () {
-        var table = layui.table;
+    //监听导航点击
+    element.on('nav(demo)', function (elem) {
+        //console.log(elem)
+        layer.msg(elem.text());
     });
+});
 
-    $("#notice").click(function () {
-        layer.open({
-            type: 1,
-            maxmin: true,
-            title: '餐厅活动',
-            area: ['180px', '150px'],
-            content: '<p>每天20:00以后点餐酒水全免</p><p>活动时间：5/1--6/1日</p>'
-        });
+layui.use('table', function () {
+    var table = layui.table;
+});
+
+$("#notice").click(function () {
+    layer.open({
+        type: 1,
+        maxmin: true,
+        title: '餐厅活动',
+        area: ['180px', '150px'],
+        content: '<p>每天20:00以后点餐酒水全免</p><p>活动时间：5/1--6/1日</p>'
     });
-    $("#desknumber").click(function () {
-        layer.open({
-            type: 1,
-            maxmin: true,
-            title: '联系方式',
-            area: ['180px', '150px'],
-            content: '<br/><br/><p>微信号：18273660815</p><br/><p>电话：15073134890</p>'
-        });
+});
+$("#desknumber").click(function () {
+    layer.open({
+        type: 1,
+        maxmin: true,
+        title: '联系方式',
+        area: ['180px', '150px'],
+        content: '<br/><br/><p>微信号：18273660815</p><br/><p>电话：15073134890</p>'
     });
+});
 </script>
 
 

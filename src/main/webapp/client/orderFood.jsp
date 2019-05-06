@@ -47,7 +47,7 @@
     <jsp:param value="orderFood" name="nav"/>
 </jsp:include>
 <br/><br/><br/>
-<div id="w">
+<div id="w" style="color: #0C0C0C">
     <c:forEach items="${menu }" var="menu" varStatus="index">
         <div id="menu">
             <!-- 图片 -->
@@ -56,7 +56,7 @@
                      style="margin-top: 10px;">
             </div>
             <!-- 文字 -->
-            <div id="menu-text">
+            <div id="menu-text" style="color: #0C0C0C">
                 <ul>
                     <li id="name">${menu.m_name }</li>
                     <li id="num">销量：${menu.m_num }</li>

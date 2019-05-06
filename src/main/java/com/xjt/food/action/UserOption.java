@@ -1,7 +1,10 @@
 package com.xjt.food.action;
 
 import com.xjt.food.entity.Desk;
+import com.xjt.food.entity.DeskFoodInfo;
+import com.xjt.food.entity.Orderitem;
 import com.xjt.food.service.IDeskService;
+import com.xjt.food.service.IOrderitemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Controller
 public class UserOption {
 
     @Autowired
     private IDeskService deskService;
+
+    @Autowired
+    private IOrderitemService orderitemService;
 
     /**
      * 返回用户注册的主页地址
@@ -83,4 +92,22 @@ public class UserOption {
         model.addAttribute("desk",desk);
         return "/client/showUser.jsp";
     }
+
+    /**
+     * 根据id查询餐桌的详细信息
+     */
+    @RequestMapping("DeskFoodInfo.action")
+     public String getDeskFoodInfo(@RequestParam("id") Long id,Model model){
+         List<Orderitem> list = orderitemService.queryItemByOsid(id);
+         List<DeskFoodInfo> dataList = new ArrayList<>();
+         for (Orderitem orderitem : list){
+             DeskFoodInfo deskFoodInfo = new DeskFoodInfo();
+             deskFoodInfo.setName(orderitem.getMenu().getM_name());
+             deskFoodInfo.setPrice(orderitem.getOi_price());
+             deskFoodInfo.setNum(orderitem.getOi_num());
+             dataList.add(deskFoodInfo);
+         }
+         model.addAttribute("foodList",dataList);
+         return "";
+     }
 }
