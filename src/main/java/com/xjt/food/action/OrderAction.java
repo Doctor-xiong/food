@@ -50,6 +50,7 @@ public class OrderAction {
         if (osList.size() == 0) {
             Orderitems os = new Orderitems();
             os.setD_id(desk.getD_id());
+
             int i = orderitemsServiceImpl.addOrderitems(os);
             if (i == 1) {
                 log.info("成功创建一个该餐桌的总订单----获取到返回的os_id" + os.getOs_id());
@@ -247,7 +248,7 @@ public class OrderAction {
     public @ResponseBody
     Layui queryAllOrderitems(Model model, HttpSession session, PageUtils page) {
         log.info(page.getLimit() + "jin---------" + page.getCurr());
-        List<Orderitems> oList = orderitemsServiceImpl.findAllPage(page.before(), page.after());
+        List<Orderitems> oList = orderitemsServiceImpl.findAllPage();
         int count = orderitemsServiceImpl.count();
         Layui layui = new Layui();
         layui.setCount(count);

@@ -243,14 +243,14 @@ public class DeskAction {
         long did = Long.parseLong(d_id);
         Desk desk = deskServiceImpl.queryDeskById(did);
 
-        String text = "http://192.168.43.112:8082/food/clientLogin.action?d_id=" + desk.getD_id() + "&d_password=" + desk.getD_password(); //一号桌登录
+        String text = "http://127.0.0.1:8082 /food/clientLogin.action?d_id=" + desk.getD_id() + "&d_password=" + desk.getD_password(); //一号桌登录
         log.info("随机码： " + text);
         int width = 500; // 二维码图片的宽
         int height = 500; // 二维码图片的高
         String format = "png"; // 二维码图片的格式
 
         //创建生成路径及文件名
-        String newName = desk.getD_id() + "password" + desk.getD_password();
+        String newName = desk.getD_id() + "CodeImg" + desk.getD_password();
         //文件存储的相对路径
         String path = "/upload/code";
         //获取需要存储的路径的绝对路径

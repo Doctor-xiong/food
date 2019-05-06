@@ -92,13 +92,11 @@ public class OrderitemsServiceImpl implements IOrderitemsService {
     /******************张洋的方法************************/
     /***
      * 按照分页获取内容
-     * @param before
-     * @param after
      * @return
      */
     @Override
-    public List<Orderitems> findAllPage(int before, int after) {
-        return orderitemsMapper.findAllPage(before, after);
+    public List<Orderitems> findAllPage() {
+        return orderitemsMapper.findAllPage();
     }
 
     /***

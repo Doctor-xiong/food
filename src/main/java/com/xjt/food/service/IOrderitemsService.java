@@ -65,7 +65,7 @@ public interface IOrderitemsService {
      * @param after
      * @return
      */
-    public List<Orderitems> findAllPage(int before, int after);
+    public List<Orderitems> findAllPage();
 
     /***
      * 计算有多少条数据
