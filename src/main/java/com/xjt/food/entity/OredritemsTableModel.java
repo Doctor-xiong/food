@@ -17,7 +17,6 @@ public class OredritemsTableModel {
 
 	public OredritemsTableModel() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public OredritemsTableModel(int code, String message, int count,

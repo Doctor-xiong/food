@@ -16,7 +16,6 @@ public class ExpenseTableModel {
 	List<Expense> data;
 	public ExpenseTableModel() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public ExpenseTableModel(int code, String message, int count,
 			List<Expense> data) {

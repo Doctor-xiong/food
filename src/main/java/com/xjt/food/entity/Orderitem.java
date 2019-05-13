@@ -29,7 +29,6 @@ public class Orderitem {
 
 	public Orderitem() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Orderitem(Long os_id, Long m_id, Long oi_num, Float oi_price) {
